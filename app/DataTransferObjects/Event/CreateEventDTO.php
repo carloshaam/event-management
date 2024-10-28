@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects\Event;
 
+use App\Enums\VisibilityEnum;
+
 readonly class CreateEventDTO
 {
     public function __construct(
+        public VisibilityEnum $visibility,
         public string $title,
         public string $description,
         public string $start_time,
@@ -18,6 +21,7 @@ readonly class CreateEventDTO
     public function toArray(): array
     {
         return [
+            'visibility' => $this->visibility,
             'title' => $this->title,
             'description' => $this->description,
             'start_time' => $this->start_time,

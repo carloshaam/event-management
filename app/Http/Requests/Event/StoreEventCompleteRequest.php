@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Event;
 
+use App\Enums\VisibilityEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -40,6 +41,7 @@ class StoreEventCompleteRequest extends FormRequest
             'end_time' => ['required', 'date', 'after:start_time'],
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'created_by' => ['nullable'],
+            'visibility' => ['required', Rule::enum(VisibilityEnum::class)],
         ];
     }
 

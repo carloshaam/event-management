@@ -12,6 +12,9 @@ import useEvent from "@/Composables/App/Event/useEvent.js";
 const props = defineProps({
   categories: {
     type: Array,
+  },
+  visibilities: {
+    type: Array,
   }
 });
 
@@ -279,6 +282,48 @@ const {
               </div>
             </div>
             <!-- End Date and Time Event -->
+            <!-- Start Visibility Event -->
+            <div class="flex flex-col bg-white border rounded shadow-lg shadow-gray-100 mb-4">
+              <div class="flex justify-between items-center border-b py-3 px-8">
+                <h3 class="text-lg font-bold text-gray-800">
+                  5. Visibilidade do evento
+                  <p class="text-sm font-normal text-gray-500">
+                    Se você definir o seu evento como público,
+                    ele poderá aparecer em buscadores da internet (como Google, Bing, Yahoo),
+                    disponível em nossa home e poderá ser recomendado
+                    pelo nosso site, através de nossos newsletter ou posts nas redes sociais.
+                    Caso o seu evento seja exclusivo, marque-o como privado.
+                  </p>
+                </h3>
+              </div>
+              <div class="p-8">
+                <div class="grid grid-cols-2 gap-4">
+                  <template v-for="(label) in visibilities">
+                    <div class="col-span-1">
+                      <div class="flex items-center ps-4 border border-gray-200 rounded-md">
+                        <input
+                          :id="'visibility-radio-' + label.value"
+                          type="radio"
+                          v-model="form.visibility"
+                          :value="label.value"
+                          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                        >
+                        <label
+                          :for="'visibility-radio-' + label.value"
+                          class="w-full py-4 ms-2 text-sm font-medium text-gray-900">
+                          {{ label.name }}
+                        </label>
+                        <InputError
+                          v-if="errors && errors.visibility"
+                          :message="errors.visibility[0]"
+                        />
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+            <!-- End Visibility Event -->
             <div class="flex items-center justify-end">
               <PrimaryButton type="submit" class="mt-4" :disabled="isLoading">
                 <template v-if="isLoading">

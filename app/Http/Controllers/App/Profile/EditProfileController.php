@@ -13,7 +13,7 @@ final readonly class EditProfileController
 {
     public function __invoke(Request $request): Response
     {
-        return Inertia::render('Profile/EditProfile', [
+        return Inertia::render('App/Profile/EditProfile', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);

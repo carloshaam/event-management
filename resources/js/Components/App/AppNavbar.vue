@@ -68,6 +68,11 @@ onMounted(() => {
                     </div>
                     <ul class="py-2" aria-labelledby="app-user-menu-button">
                       <li>
+                        <Link :href="route('app.profile.edit')"
+                              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Meu perfil
+                        </Link>
+                      </li>
+                      <li>
                         <Link :href="route('app.events.index')"
                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Meus eventos
                         </Link>

@@ -8,6 +8,7 @@ use App\Actions\Event\CreateEventAction;
 use App\Actions\Location\CreateLocationAction;
 use App\DataTransferObjects\Event\CreateEventDTO;
 use App\DataTransferObjects\Location\CreateLocationDTO;
+use App\Enums\VisibilityEnum;
 use App\Http\Resources\Event\EventResource;
 use Illuminate\Support\Facades\DB;
 
@@ -46,6 +47,7 @@ readonly class CreateEventCompleteService
     protected function makeEventDTO(array $data): CreateEventDTO
     {
         return new CreateEventDTO(
+            visibility: VisibilityEnum::from($data['visibility']),
             title: $data['title'],
             description: $data['description'],
             start_time: $data['start_time'],

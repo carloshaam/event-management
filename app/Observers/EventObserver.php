@@ -6,7 +6,6 @@ namespace App\Observers;
 
 use App\Models\Event;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
-use Illuminate\Support\Facades\Auth;
 
 class EventObserver implements ShouldHandleEventsAfterCommit
 {
@@ -15,8 +14,7 @@ class EventObserver implements ShouldHandleEventsAfterCommit
      */
     public function created(Event $event): void
     {
-        $event->created_by = Auth::id();
-        $event->save();
+        //
     }
 
     /**

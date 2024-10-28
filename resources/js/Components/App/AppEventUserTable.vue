@@ -37,7 +37,7 @@ const { filterForm, submitFilterForm } = useEventUserFilter();
       </div>
     </div>
     <table class="w-full text-sm text-left text-gray-500">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-100">
       <tr>
         <th scope="col" class="px-6 py-3">Visibilidade</th>
         <th scope="col" class="px-6 py-3">Evento</th>
@@ -50,8 +50,7 @@ const { filterForm, submitFilterForm } = useEventUserFilter();
       <tr v-for="event in events.data" :key="event.id" class="bg-white border-b">
         <td class="px-6 py-4">
           <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full me-2" :class="event.visibility.color"></div>
-            {{ event.visibility.text }}
+            <div class="h-2.5 w-2.5 rounded-full me-2" :class="event.visibility.color"></div> {{ event.visibility.text }}
           </div>
         </td>
         <td class="px-6 py-4">{{ event.title }}</td>

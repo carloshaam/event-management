@@ -7,6 +7,7 @@ export default function useEvent(data) {
   const isLoadingSearchCEP = ref(false);
   const errors = ref({});
   const form = reactive({
+    visibility: null,
     title: null,
     description: null,
     start_time: null,
