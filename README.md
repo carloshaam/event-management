@@ -66,6 +66,7 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 - [ ] Integração com calendários (Google Calendar, Outlook).
 - [ ] Sistema de convites para que organizadores enviem por e-mail.
 - [ ] Criar perfis públicos para organizadores (portfólio de eventos).
+- [x] Integração com notícias (News API).
 
 ### 12. Tradução
 - [ ] Atualizar tradução pt-BR.

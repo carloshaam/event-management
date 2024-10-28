@@ -17,6 +17,7 @@ final readonly class IndexHomeController
 
     public function __invoke(Request $request): Response
     {
+        //dd(Cache::get('newsapi-top-headlines'));
         return Inertia::render('App/Home/IndexHome', [
             'categories' => fn () => $this->listTenCategoryService->list(),
         ]);

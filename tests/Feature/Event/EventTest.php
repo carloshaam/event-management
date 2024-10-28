@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\VisibilityEnum;
 use App\Http\Resources\Event\EventResource;
 use App\Models\Category;

@@ -18,7 +18,7 @@ readonly class ListTenCategoryService
     {
         return Cache::remember(
             'list_ten_categories',
-            3600,
+            3600, // TODO: arrumar hard coding
             fn () => $this->listTenCategoryAction->execute()
         );
     }
