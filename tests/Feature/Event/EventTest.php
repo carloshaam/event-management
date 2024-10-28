@@ -23,7 +23,7 @@ test('can create an event', function () {
     $category = Category::factory()->create();
 
     $data = [
-        'visibility' => VisibilityEnum::PRIVATE,
+        'visibility' => VisibilityEnum::PRIVATE->value,
         'title' => 'Titulo teste',
         'description' => 'Descrição teste',
         'start_time' => '2024-10-27T16:43',
@@ -70,7 +70,7 @@ test('creates unique slug if title already exists', function () {
     $category = Category::factory()->create();
 
     $data = [
-        'visibility' => VisibilityEnum::PRIVATE,
+        'visibility' => VisibilityEnum::PRIVATE->value,
         'title' => 'Titulo teste',
         'description' => 'Descrição teste',
         'start_time' => '2024-10-27 16:43:00',
