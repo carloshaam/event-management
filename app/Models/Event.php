@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\VisibilityEnum;
 use App\Observers\EventObserver;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Database\Factories\EventFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[ObservedBy([EventObserver::class])]
 class Event extends Model
 {
+    /** @use HasFactory<EventFactory> */
     use HasFactory;
     use SoftDeletes;
     use Sluggable;
