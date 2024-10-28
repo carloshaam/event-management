@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Category\CategoryRepositoryInterface;
 use App\Contracts\Event\EventRepositoryInterface;
 use App\Contracts\Location\LocationRepositoryInterface;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Location\LocationRepository;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(EventRepositoryInterface::class, EventRepository::class);
         $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
     }
 
     /**

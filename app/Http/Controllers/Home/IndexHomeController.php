@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
+use App\Services\Category\ListTenCategoryService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
 use Inertia\Response;
 
-final class IndexHomeController extends Controller
+final readonly class IndexHomeController
 {
+    public function __construct(
+        private ListTenCategoryService $listTenCategoryService
+    ) {}
+
     public function __invoke(Request $request): Response
     {
         return Inertia::render('App/Home/IndexHome', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
+            'categories' => fn () => $this->listTenCategoryService->list(),
         ]);
     }
 }
