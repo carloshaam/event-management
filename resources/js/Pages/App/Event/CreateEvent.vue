@@ -6,13 +6,12 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import InputError from "@/Components/InputError.vue";
-import { vMaska } from "maska/vue";
+import {vMaska} from "maska/vue";
 import useEvent from "@/Composables/App/Event/useEvent.js";
 
 const props = defineProps({
   categories: {
     type: Array,
-    required: true
   }
 });
 
@@ -51,122 +50,120 @@ const {
                   <div class="col-span-2">
                     <InputLabel for="zip_code" value="CEP"/>
                     <TextInput
-                        id="zip_code"
-                        type="text"
-                        inputmode="numeric"
-                        class="mt-1 block w-full"
-                        v-maska="'#####-###'"
-                        v-model="form.zip_code"
-                        autocomplete="zip_code"
-                        @keydown.tab="searchCEP($event.target.value)"
-                        :disabled="isLoadingSearchCEP"
+                      id="zip_code"
+                      type="text"
+                      inputmode="numeric"
+                      class="mt-1 block w-full"
+                      v-maska="'#####-###'"
+                      v-model="form.zip_code"
+                      autocomplete="zip_code"
+                      @keydown.tab="searchCEP($event.target.value)"
+                      :disabled="isLoadingSearchCEP"
                     />
                     <InputError
-                        v-if="errors && errors.zip_code"
-                        :message="errors.zip_code[0]"
+                      v-if="errors && errors.zip_code"
+                      :message="errors.zip_code[0]"
                     />
                   </div>
 
                   <div class="col-span-2">
                     <InputLabel for="street" value="Endereço"/>
                     <TextInput
-                        id="street"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.street"
-                        required
-                        autocomplete="street"
-                        :disabled="isLoadingSearchCEP"
-                        :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      id="street"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.street"
+                      required
+                      autocomplete="street"
+                      :disabled="isLoadingSearchCEP"
+                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
                     />
                     <InputError
-                        v-if="errors && errors.street"
-                        :message="errors.street[0]"
+                      v-if="errors && errors.street"
+                      :message="errors.street[0]"
                     />
                   </div>
                   <div class="col-span-1">
                     <InputLabel for="number" value="Número"/>
                     <TextInput
-                        id="number"
-                        type="text"
-                        inputmode="numeric"
-                        class="mt-1 block w-full"
-                        v-model="form.number"
-                        required
-                        autocomplete="number"
-                        :disabled="isLoadingSearchCEP"
-                        :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      id="number"
+                      type="text"
+                      inputmode="numeric"
+                      class="mt-1 block w-full"
+                      v-model="form.number"
+                      required
+                      autocomplete="number"
                     />
                     <InputError
-                        v-if="errors && errors.number"
-                        :message="errors.number[0]"
+                      v-if="errors && errors.number"
+                      :message="errors.number[0]"
                     />
                   </div>
                   <div class="col-span-1">
                     <InputLabel for="complement" value="Complemento"/>
                     <TextInput
-                        id="complement"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.complement"
-                        autocomplete="complement"
-                        :disabled="isLoadingSearchCEP"
-                        :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      id="complement"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.complement"
+                      autocomplete="complement"
+                      :disabled="isLoadingSearchCEP"
+                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
                     />
                     <InputError
-                        v-if="errors && errors.complement"
-                        :message="errors.complement[0]"
+                      v-if="errors && errors.complement"
+                      :message="errors.complement[0]"
                     />
                   </div>
                   <div class="col-span-2">
                     <InputLabel for="neighborhood" value="Bairro"/>
                     <TextInput
-                        id="neighborhood"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.neighborhood"
-                        required
-                        autocomplete="neighborhood"
-                        :disabled="isLoadingSearchCEP"
-                        :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      id="neighborhood"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.neighborhood"
+                      required
+                      autocomplete="neighborhood"
+                      :disabled="isLoadingSearchCEP"
+                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
                     />
                     <InputError
-                        v-if="errors && errors.neighborhood"
-                        :message="errors.neighborhood[0]"
+                      v-if="errors && errors.neighborhood"
+                      :message="errors.neighborhood[0]"
                     />
                   </div>
                   <div class="col-span-2">
                     <InputLabel for="state" value="Estado"/>
                     <select
-                        id="whatsapp"
-                        v-model="form.state"
-                        class="py-3 px-4 pe-9 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        :disabled="isLoadingSearchCEP"
-                        :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      id="whatsapp"
+                      v-model="form.state"
+                      class="py-3 px-4 pe-9 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                      :disabled="isLoadingSearchCEP"
+                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
                     >
                       <option value="MG" selected>MG</option>
                       <option value="SP">SP</option>
                     </select>
                     <InputError
-                        v-if="errors && errors.state"
-                        :message="errors.state[0]"
+                      v-if="errors && errors.state"
+                      :message="errors.state[0]"
                     />
                   </div>
                   <div class="col-span-2">
                     <InputLabel for="city" value="Cidade"/>
                     <TextInput
-                        id="city"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.city"
-                        required
-                        autocomplete="city"
-                        :disabled="isLoadingSearchCEP"
-                        :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      id="city"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.city"
+                      required
+                      autocomplete="city"
+                      :disabled="isLoadingSearchCEP"
+                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
                     />
                     <InputError
-                        v-if="errors && errors.city"
-                        :message="errors.city[0]"
+                      v-if="errors && errors.city"
+                      :message="errors.city[0]"
                     />
                   </div>
                 </div>
@@ -185,30 +182,30 @@ const {
                   <div class="col-span-2">
                     <InputLabel for="title" value="Titulo do evento"/>
                     <TextInput
-                        id="title"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.title"
-                        autocomplete="title"
+                      id="title"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.title"
+                      autocomplete="title"
                     />
                     <InputError
-                        v-if="errors && errors.title"
-                        :message="errors.title[0]"
+                      v-if="errors && errors.title"
+                      :message="errors.title[0]"
                     />
                   </div>
                   <div class="col-span-2">
                     <InputLabel for="category_id" value="Categoria"/>
                     <select
-                        id="category_id"
-                        v-model="form.category_id"
-                        class="py-3 px-4 pe-9 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                      id="category_id"
+                      v-model="form.category_id"
+                      class="py-3 px-4 pe-9 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     >
                       <option value="1" selected>Solteiro (a)</option>
                       <option value="2">Casado (a)</option>
                     </select>
                     <InputError
-                        v-if="errors && errors.category_id"
-                        :message="errors.category_id[0]"
+                      v-if="errors && errors.category_id"
+                      :message="errors.category_id[0]"
                     />
                   </div>
                 </div>
@@ -227,16 +224,16 @@ const {
                   <div class="col-span-2">
                     <InputLabel for="description" value="Descrição"/>
                     <TextAreaInput
-                        id="description"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.description"
-                        autocomplete="description"
-                        rows="6"
+                      id="description"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.description"
+                      autocomplete="description"
+                      rows="6"
                     />
                     <InputError
-                        v-if="errors && errors.description"
-                        :message="errors.description[0]"
+                      v-if="errors && errors.description"
+                      :message="errors.description[0]"
                     />
                   </div>
                 </div>
@@ -255,27 +252,27 @@ const {
                   <div class="col-span-1">
                     <InputLabel for="start_time" value="Data de início"/>
                     <TextInput
-                        id="start_time"
-                        type="datetime-local"
-                        class="mt-1 block w-full"
-                        v-model="form.start_time"
+                      id="start_time"
+                      type="datetime-local"
+                      class="mt-1 block w-full"
+                      v-model="form.start_time"
                     />
                     <InputError
-                        v-if="errors && errors.start_time"
-                        :message="errors.start_time[0]"
+                      v-if="errors && errors.start_time"
+                      :message="errors.start_time[0]"
                     />
                   </div>
                   <div class="col-span-1">
                     <InputLabel for="end_time" value="Data de término"/>
                     <TextInput
-                        id="end_time"
-                        type="datetime-local"
-                        class="mt-1 block w-full"
-                        v-model="form.end_time"
+                      id="end_time"
+                      type="datetime-local"
+                      class="mt-1 block w-full"
+                      v-model="form.end_time"
                     />
                     <InputError
-                        v-if="errors && errors.end_time"
-                        :message="errors.end_time[0]"
+                      v-if="errors && errors.end_time"
+                      :message="errors.end_time[0]"
                     />
                   </div>
                 </div>

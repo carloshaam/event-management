@@ -6,7 +6,7 @@ namespace App\DataTransferObjects\Event;
 
 use App\DataTransferObjects\Location\CreateLocationDTO;
 
-readonly class CreateEventCompleteDTO
+readonly class CreateEventCompleteDTO // TODO: remover
 {
     public function __construct(
         public string $title,

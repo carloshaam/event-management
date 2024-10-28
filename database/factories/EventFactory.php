@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\VisibilityEnum;
 use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,6 +27,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
+            'visibility' => fake()->randomElement([VisibilityEnum::PRIVATE, VisibilityEnum::PUBLIC]),
             'title' => fake()->name,
             'slug' => fake()->slug,
             'description' => fake()->text(150),

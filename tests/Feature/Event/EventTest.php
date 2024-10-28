@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\VisibilityEnum;
 use App\Http\Resources\Event\EventResource;
 use App\Models\Category;
 use App\Models\Event;
@@ -22,6 +23,7 @@ test('can create an event', function () {
     $category = Category::factory()->create();
 
     $data = [
+        'visibility' => VisibilityEnum::PRIVATE,
         'title' => 'Titulo teste',
         'description' => 'Descrição teste',
         'start_time' => '2024-10-27T16:43',
@@ -68,6 +70,7 @@ test('creates unique slug if title already exists', function () {
     $category = Category::factory()->create();
 
     $data = [
+        'visibility' => VisibilityEnum::PRIVATE,
         'title' => 'Titulo teste',
         'description' => 'Descrição teste',
         'start_time' => '2024-10-27 16:43:00',
