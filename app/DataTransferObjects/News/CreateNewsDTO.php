@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects\News;
 
+use Illuminate\Foundation\Http\FormRequest;
+
 readonly class CreateNewsDTO
 {
     public function __construct(
@@ -17,6 +19,21 @@ readonly class CreateNewsDTO
         public string $published_at,
         public string $content,
     ) {}
+
+    public static function fromRequest(FormRequest $request): self
+    {
+        return new self(
+            source_slug: $request->input('source_slug'),
+            source_name: $request->input('source_name'),
+            author: $request->input('author'),
+            title: $request->input('title'),
+            description: $request->input('description'),
+            url: $request->input('url'),
+            url_to_image: $request->input('url_to_image'),
+            published_at: $request->input('published_at'),
+            content: $request->input('content'),
+        );
+    }
 
     public function toArray(): array
     {

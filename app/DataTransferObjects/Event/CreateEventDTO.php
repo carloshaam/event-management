@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataTransferObjects\Event;
 
 use App\Enums\VisibilityEnum;
+use Illuminate\Foundation\Http\FormRequest;
 
 readonly class CreateEventDTO
 {
@@ -17,6 +18,19 @@ readonly class CreateEventDTO
         public int $category_id,
         public int $created_by,
     ) {}
+
+    public static function fromRequest(FormRequest $request): self
+    {
+        return new self(
+            visibility: VisibilityEnum::from($request->input('visibility')),
+            title: $request->input('title'),
+            description: $request->input('description'),
+            start_time: $request->input('start_time'),
+            end_time: $request->input('end_time'),
+            category_id: $request->input('category_id'),
+            created_by: $request->user()->id,
+        );
+    }
 
     public function toArray(): array
     {

@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use App\DataTransferObjects\Event\CreateEventDTO;
+use App\DataTransferObjects\Location\CreateLocationDTO;
 use App\Enums\VisibilityEnum;
 use App\Http\Resources\Event\EventResource;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\User;
-use App\Services\Event\CreateEventCompleteService;
+use App\Services\Event\CreateEventWithLocationService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -24,25 +26,29 @@ test('can create an event', function () {
     $user = Auth::user();
     $category = Category::factory()->create();
 
-    $data = [
-        'visibility' => VisibilityEnum::PRIVATE->value,
-        'title' => 'Titulo teste',
-        'description' => 'Descrição teste',
-        'start_time' => '2024-10-27T16:43',
-        'end_time' => '2024-10-28T16:43',
-        'category_id' => $category->id,
-        'created_by' => $user->id,
-        'zip_code' => '12345678',
-        'street' => 'Rua Teste',
-        'number' => '123',
-        'complement' => 'Apto 1',
-        'neighborhood' => 'Bairro Teste',
-        'city' => 'Cidade Teste',
-        'state' => 'MG',
-    ];
+    $eventDTO = new CreateEventDTO(
+        VisibilityEnum::PRIVATE,
+        'Titulo teste',
+        'Descrição teste',
+        '2024-10-27T16:43',
+        '2024-10-28T16:43',
+        $category->id,
+        $user->id
+    );
 
-    $service = app(CreateEventCompleteService::class);
-    $eventResponse = $service->createEventComplete($data);
+    $locationDTO = new CreateLocationDTO(
+        1,
+        '12345678',
+        'Rua Teste',
+        '123',
+        'Apto 1',
+        'Bairro Teste',
+        'Cidade Teste',
+        'MG'
+    );
+
+    $service = app(CreateEventWithLocationService::class);
+    $eventResponse = $service->create($eventDTO, $locationDTO);
 
     $eventResponseData = $eventResponse->toArray(request());
 
@@ -71,29 +77,33 @@ test('creates unique slug if title already exists', function () {
     $user = Auth::user();
     $category = Category::factory()->create();
 
-    $data = [
-        'visibility' => VisibilityEnum::PRIVATE->value,
-        'title' => 'Titulo teste',
-        'description' => 'Descrição teste',
-        'start_time' => '2024-10-27 16:43:00',
-        'end_time' => '2024-10-28 16:43:00',
-        'category_id' => $category->id,
-        'created_by' => $user->id,
-        'zip_code' => '12345678',
-        'street' => 'Rua Teste',
-        'number' => '123',
-        'complement' => 'Apto 1',
-        'neighborhood' => 'Bairro Teste',
-        'city' => 'Cidade Teste',
-        'state' => 'MG',
-    ];
+    $eventDTO = new CreateEventDTO(
+        VisibilityEnum::PRIVATE,
+        'Titulo teste',
+        'Descrição teste',
+        '2024-10-27T16:43',
+        '2024-10-28T16:43',
+        $category->id,
+        $user->id
+    );
 
-    $service = app(CreateEventCompleteService::class);
+    $locationDTO = new CreateLocationDTO(
+        1,
+        '12345678',
+        'Rua Teste',
+        '123',
+        'Apto 1',
+        'Bairro Teste',
+        'Cidade Teste',
+        'MG'
+    );
 
-    $firstEventResponse = $service->createEventComplete($data);
+    $service = app(CreateEventWithLocationService::class);
+
+    $firstEventResponse = $service->create($eventDTO, $locationDTO);
     $firstEventResponseData = $firstEventResponse->toArray(request());
 
-    $secondEventResponse = $service->createEventComplete($data);
+    $secondEventResponse = $service->create($eventDTO, $locationDTO);
     $secondEventResponseData = $secondEventResponse->toArray(request());
 
     expect($firstEventResponseData['slug'])

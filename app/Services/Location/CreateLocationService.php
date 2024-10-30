@@ -13,24 +13,8 @@ readonly class CreateLocationService
         private CreateLocationAction $createLocationAction,
     ) {}
 
-    public function create(array $data, int $eventId): void
+    public function create(CreateLocationDTO $dto): void
     {
-        $locationDTO = $this->makeLocationDTO($data, $eventId);
-
-        $this->createLocationAction->execute($locationDTO);
-    }
-
-    protected function makeLocationDTO(array $data, int $eventId): CreateLocationDTO
-    {
-        return new CreateLocationDTO(
-            event_id: $eventId,
-            zip_code: $data['zip_code'],
-            street: $data['street'],
-            number: $data['number'],
-            complement: $data['complement'],
-            neighborhood: $data['neighborhood'],
-            city: $data['city'],
-            state: $data['state'],
-        );
+        $this->createLocationAction->execute($dto);
     }
 }
