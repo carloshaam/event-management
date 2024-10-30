@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Event;
 
 use App\Enums\VisibilityEnum;
+use App\Rules\MinWords;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -29,14 +30,14 @@ class StoreEventCompleteRequest extends FormRequest
     {
         return [
             'zip_code' => ['required', 'string', 'min:8', 'max:9'],
-            'street' => ['required', 'string'],
+            'street' => ['required', 'string', 'max:100'],
             'number' => ['required', 'string', 'max:10'],
-            'complement' => ['nullable', 'string'],
-            'neighborhood' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'state' => ['required', 'string'],
-            'title' => ['required', 'string', 'max:150'],
-            'description' => ['required', 'string', 'max:255'],
+            'complement' => ['nullable', 'string', 'max:50'],
+            'neighborhood' => ['required', 'string', 'max:100'],
+            'city' => ['required', 'string', 'max:80'],
+            'state' => ['required', 'string', 'max:2'],
+            'title' => ['required', 'string', 'max:150', new MinWords(2)],
+            'description' => ['required', 'string', 'max:255', new MinWords(5)],
             'start_time' => ['required', 'date', 'after:tomorrow'],
             'end_time' => ['required', 'date', 'after:start_time'],
             'category_id' => ['required', Rule::exists('categories', 'id')],
