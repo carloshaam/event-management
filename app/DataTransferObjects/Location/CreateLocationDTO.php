@@ -9,8 +9,8 @@ use Illuminate\Foundation\Http\FormRequest;
 readonly class CreateLocationDTO
 {
     public function __construct(
-        public ?int $event_id,
-        public string $zip_code,
+        public ?int $eventId,
+        public string $zipCode,
         public string $street,
         public string $number,
         public ?string $complement,
@@ -22,8 +22,8 @@ readonly class CreateLocationDTO
     public static function fromRequest(FormRequest $request): self
     {
         return new self(
-            event_id: $request->input('event_id'),
-            zip_code: $request->input('zip_code'),
+            eventId: $request->input('event_id'),
+            zipCode: $request->input('zip_code'),
             street: $request->input('street'),
             number: $request->input('number'),
             complement: $request->input('complement'),
@@ -36,8 +36,8 @@ readonly class CreateLocationDTO
     public function withEventId(int $eventId): self
     {
         return new self(
-            event_id: $eventId,
-            zip_code: $this->zip_code,
+            eventId: $eventId,
+            zipCode: $this->zip_code,
             street: $this->street,
             number: $this->number,
             complement: $this->complement,

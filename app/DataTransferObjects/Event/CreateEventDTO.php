@@ -13,8 +13,8 @@ readonly class CreateEventDTO
         public VisibilityEnum $visibility,
         public string $title,
         public string $description,
-        public string $start_time,
-        public string $end_time,
+        public string $startTime,
+        public string $endTime,
         public int $category_id,
         public int $created_by,
     ) {}
@@ -25,8 +25,8 @@ readonly class CreateEventDTO
             visibility: VisibilityEnum::from($request->input('visibility')),
             title: $request->input('title'),
             description: $request->input('description'),
-            start_time: $request->input('start_time'),
-            end_time: $request->input('end_time'),
+            startTime: $request->input('start_time'),
+            endTime: $request->input('end_time'),
             category_id: $request->input('category_id'),
             created_by: $request->user()->id,
         );
