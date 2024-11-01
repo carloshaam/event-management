@@ -10,11 +10,6 @@ enum EnumHelper
 {
     public static function visibilities(): array
     {
-        /*return array_column(
-            VisibilityEnum::cases(),
-            'value',
-            'name'
-        );*/
         return array_map(
             fn(VisibilityEnum $visibility)
                 => [
