@@ -37,7 +37,7 @@ readonly class CreateLocationDTO
     {
         return new self(
             eventId: $eventId,
-            zipCode: $this->zip_code,
+            zipCode: $this->zipCode,
             street: $this->street,
             number: $this->number,
             complement: $this->complement,
@@ -50,8 +50,8 @@ readonly class CreateLocationDTO
     public function toArray(): array
     {
         return [
-            'event_id' => $this->event_id,
-            'zip_code' => $this->zip_code,
+            'event_id' => $this->eventId,
+            'zip_code' => $this->zipCode,
             'street' => $this->street,
             'number' => $this->number,
             'complement' => $this->complement,

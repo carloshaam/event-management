@@ -38,8 +38,8 @@ readonly class CreateEventDTO
             'visibility' => $this->visibility,
             'title' => $this->title,
             'description' => $this->description,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
+            'start_time' => $this->startTime,
+            'end_time' => $this->endTime,
             'category_id' => $this->category_id,
             'created_by' => $this->created_by,
         ];
