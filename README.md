@@ -15,7 +15,6 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 ### 2. Perfil do Usuário
 - [x] Editar perfil.
 - [x] Excluir perfil.
-- [ ] Adicionar foto ao perfil
 
 ### 2. CRUD de Eventos
 - [x] Criar formulário para cadastro de novos eventos (título, descrição, data, horário, local e categoria...).
