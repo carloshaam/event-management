@@ -4,13 +4,15 @@
 
 O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxiliar organizadores e participantes na criação, gerenciamento e participação de eventos. A plataforma permite que organizadores configurem seus eventos com todos os detalhes necessários, incluindo controle de vagas e inscrições, comunicação com participantes e gerenciamento de presença. Participantes podem se inscrever, acompanhar eventos futuros e receber notificações para datas importantes. O sistema visa oferecer uma experiência completa e interativa para ambos os públicos, facilitando a organização e promovendo maior interação e controle.
 
+> [!WARNING]
+> Projeto em desenvolvimento, alterações estão sendo feitas e mudanças rigorosas podem acontecer a qualquer momento.
+
 ## To-Do List do Projeto
 
 ### 1. Autenticação de Usuários
-- [x] Implementar registro de usuários (organizadores e participantes).
+- [x] Implementar registro de usuários.
 - [x] Implementar login e logout de usuários.
 - [x] Recuperação de senha para usuários registrados.
-- [ ] Controle de acesso por tipo de usuário (organizadores e participantes).
 
 ### 2. Perfil do Usuário
 - [x] Editar perfil.
@@ -72,7 +74,7 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 - [ ] Atualizar tradução pt-BR.
 - [ ] Fazer integração da tradução no front-end.
 
-## Tecnologias
+## 📚 Tecnologias
 
 - PHP 8.3.11
 - Node.js ^19
@@ -82,7 +84,7 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 - Vue
 - Tailwindcss
 
-## Uso
+## 📦 Instalação
 
 ```bash
 composer install
@@ -94,6 +96,30 @@ php artisan migrate
 composer run dev
 ```
 
-## License
+## 📆 Registro de alterações
+
+Consulte [CHANGELOG](CHANGELOG.md) para obter mais informações sobre o que mudou recentemente.
+
+## 🧪 Testando
+
+``` bash
+composer test
+```
+
+## 💞 Contribuindo
+
+Consulte [CONTRIBUTING](CONTRIBUTING.md) e [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) para obter detalhes.
+
+## 🧯 Segurança
+
+Se você descobrir algum problema relacionado à segurança, envie um e-mail para email@gmail.com em vez de usar o rastreador de problemas.
+
+## 🏅 Créditos
+
+- [Carlos Moreira][link-author]
+
+## ⚖️ Licença
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+[link-author]: https://twitter.com/carloshaam
