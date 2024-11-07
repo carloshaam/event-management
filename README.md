@@ -1,6 +1,4 @@
-## Event Management
-
-# Sistema de Gestão de Eventos (Em desenvolvimento)
+# Sistema de Gestão de Eventos
 
 O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxiliar organizadores e participantes na criação, gerenciamento e participação de eventos. A plataforma permite que organizadores configurem seus eventos com todos os detalhes necessários, incluindo controle de vagas e inscrições, comunicação com participantes e gerenciamento de presença. Participantes podem se inscrever, acompanhar eventos futuros e receber notificações para datas importantes. O sistema visa oferecer uma experiência completa e interativa para ambos os públicos, facilitando a organização e promovendo maior interação e controle.
 
