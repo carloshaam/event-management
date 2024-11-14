@@ -1,47 +1,54 @@
-# Dockerfile
+# Utilizar a imagem PHP com FPM
 FROM php:8.3-fpm
 
-# Instala dependências necessárias
-RUN apt-get update && apt-get install -y \
-    build-essential \
+# Versão da Lib do Redis para PHP
+ARG REDIS_LIB_VERSION=5.3.7
+
+# Instalação de dependências e Supervisor
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    apt-utils \
+    supervisor \
+    zlib1g-dev \
+    libzip-dev \
+    unzip \
     libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
+    libpq-dev \
     libxml2-dev \
-    zip \
     curl \
-    git \
-    unzip
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instala extensões do PHP
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+# Instalar extensões PHP
+RUN docker-php-ext-install pdo_mysql pdo_pgsql pgsql xml zip pcntl gd
 
-# Instala Composer
+# Instalar e habilitar Redis para PHP
+RUN pecl install redis-${REDIS_LIB_VERSION} \
+    && docker-php-ext-enable redis
+
+# Instala Node.js e npm
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Define o diretório de trabalho da aplicação
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Copia o código da aplicação
 COPY . .
 
-# Instala as dependências do projeto
-RUN composer install --no-scripts --no-autoloader
+# Instala dependências do projeto PHP e Node.js
+RUN composer install --no-interaction && npm install
 
-# Define permissões para a pasta de armazenamento
-RUN chown -R www-data:www-data /var/www/storage
+# Define permissões para diretórios de armazenamento e cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Instala Node.js e Yarn para o Vue.js
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get install -y nodejs
-RUN npm install -g yarn
+# Copia configuração do Supervisor
+COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Instala as dependências do front-end
-RUN yarn install
+# Expor a porta do PHP e do Nginx
+EXPOSE 9000 8080
 
-# Executa o build da aplicação
-RUN yarn build
-
-EXPOSE 9000
-CMD ["php-fpm"]
+# Iniciar o Supervisor
+CMD ["/usr/bin/supervisord"]
