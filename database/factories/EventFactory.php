@@ -33,10 +33,10 @@ class EventFactory extends Factory
         return [
             'visibility' => fake()->randomElement([VisibilityEnum::PRIVATE, VisibilityEnum::PUBLIC]),
             'stage' => fake()->randomElement([StageEnum::DRAFT, StageEnum::PUBLISHED]),
-            'cover' => basename($fileName),
-            'title' => fake()->title(),
+            'cover' => empty($fileName) ? null : basename($fileName),
+            'title' => fake()->realText(150),
             'slug' => fake()->slug(),
-            'description' => fake()->text(150),
+            'description' => fake()->realText(255),
             'start_time' => fake()->dateTime(),
             'end_time' => fake()->dateTime(now()->addDays(3)),
             'category_id' => Category::inRandomOrder()->first()->id,

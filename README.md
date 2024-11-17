@@ -57,6 +57,7 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 - [ ] Sistema de convites para que organizadores enviem por e-mail.
 - [ ] Criar perfis públicos para organizadores (portfólio de eventos).
 - [x] Integração com notícias (News API).
+- [ ] Refatorar integração com a News API.
 
 ### 12. Tradução
 - [ ] Atualizar tradução pt-BR.
@@ -76,6 +77,9 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 
 ```bash
 docker-compose up -d --build
+
+# Rode as seeds
+php artisan db:seed
 ```
 
 ## 📆 Registro de alterações

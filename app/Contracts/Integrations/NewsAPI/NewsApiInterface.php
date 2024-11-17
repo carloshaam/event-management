@@ -6,5 +6,5 @@ namespace App\Contracts\Integrations\NewsAPI;
 
 interface NewsApiInterface
 {
-    public function listTopHeadlines(string $country, int $pageSize);
+    public function listTopHeadlines(string $country, string $category, int $page, int $pageSize);
 }
