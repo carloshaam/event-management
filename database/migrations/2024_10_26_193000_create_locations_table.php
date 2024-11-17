@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained('events');
+            $table->string('place_name', 85);
             $table->char('zip_code', 8);
             $table->string('street', 100);
             $table->string('number', 10);

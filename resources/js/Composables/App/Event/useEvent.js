@@ -14,6 +14,7 @@ export default function useEvent(data) {
     start_time: null,
     end_time: null,
     category_id: data.categories || null,
+    place_name: null,
     zip_code: null,
     street: null,
     number: null,

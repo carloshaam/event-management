@@ -58,6 +58,23 @@ const submit = (stage) => {
               <div class="p-8">
                 <div class="grid grid-cols-2 gap-4">
                   <div class="col-span-2">
+                    <InputLabel for="place_name" value="Nome do local"/>
+                    <TextInput
+                      id="place_name"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.place_name"
+                      required
+                      autocomplete="place_name"
+                      :disabled="isLoadingSearchCEP"
+                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                    />
+                    <InputError
+                      v-if="errors && errors.place_name"
+                      :message="errors.place_name[0]"
+                    />
+                  </div>
+                  <div class="col-span-2">
                     <InputLabel for="zip_code" value="CEP"/>
                     <TextInput
                       id="zip_code"
@@ -75,7 +92,6 @@ const submit = (stage) => {
                       :message="errors.zip_code[0]"
                     />
                   </div>
-
                   <div class="col-span-2">
                     <InputLabel for="street" value="Endereço"/>
                     <TextInput

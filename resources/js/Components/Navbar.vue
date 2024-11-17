@@ -24,7 +24,7 @@ import {Link} from '@inertiajs/vue3';
           <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <!-- Logo and Site Name -->
             <div class="flex-shrink-0 flex items-center">
-              <Link :href="route('home.index')" class="font-semibold text-xl">
+              <Link :href="route('web.home.index')" class="font-semibold text-xl">
                 Event Management
               </Link>
             </div>

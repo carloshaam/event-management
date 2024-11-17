@@ -54,6 +54,6 @@ final class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('home.index', absolute: false));
+        return redirect(route('web.home.index', absolute: false));
     }
 }

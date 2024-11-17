@@ -18,4 +18,6 @@ interface EventRepositoryInterface
     public function listEvents(FilterEventDTO $data): EventCollection;
 
     public function listEventsIndividual(FilterEventUserDTO $data, int $userId): EventIndividualCollection;
+
+    public function listFivePublishedEvent(): EventCollection;
 }

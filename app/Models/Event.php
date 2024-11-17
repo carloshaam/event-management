@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Casts\TimestampCast;
 use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
 use App\Observers\EventObserver;
@@ -73,8 +74,8 @@ class Event extends Model
         return [
             'visibility' => VisibilityEnum::class,
             'stage' => StageEnum::class,
-            'start_time' => 'datetime',
-            'end_time' => 'datetime',
+            'start_time' => TimestampCast::class,
+            'end_time' => TimestampCast::class,
         ];
     }
 
@@ -105,6 +106,11 @@ class Event extends Model
     public function scopePublished(Builder $query): void
     {
         $query->where(column: 'stage', operator: '=', value: StageEnum::PUBLISHED->value);
+    }
+
+    public function scopePublic(Builder $query): void
+    {
+        $query->where(column: 'visibility', operator: '=', value: VisibilityEnum::PUBLIC->value);
     }
 
     /*

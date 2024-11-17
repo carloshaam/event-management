@@ -31,7 +31,7 @@ readonly class EventRepository implements EventRepositoryInterface
         $events = $this->model->newQuery()->with(['category', 'location'])->published();
 
         if ($data->title) {
-            $events->where('title', 'like', "%{$data->title}%");
+            $events->where(column: 'title', operator: 'like', value: "%{$data->title}%");
         }
 
         return new EventCollection($events->paginate());
@@ -42,9 +42,22 @@ readonly class EventRepository implements EventRepositoryInterface
         $events = $this->model->newQuery()->with(['category', 'location'])->createdBy($userId);
 
         if ($data->title) {
-            $events->where('title', 'like', "%{$data->title}%");
+            $events->where(column: 'title', operator: 'like', value: "%{$data->title}%");
         }
 
         return new EventIndividualCollection($events->paginate());
+    }
+
+    public function listFivePublishedEvent(): EventCollection
+    {
+        $events = $this->model->newQuery()
+                              ->with(['category', 'location'])
+                              ->public()
+                              ->published()
+                              ->orderByDesc('id')
+                              ->take(5)
+                              ->get();
+
+        return new EventCollection($events);
     }
 }

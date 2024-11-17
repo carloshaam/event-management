@@ -10,8 +10,17 @@ class DefineDiskHelper
 {
     public static function disk(): string
     {
-        if (config('app.env') === SystemEnvironment::PRODUCTION->value) {
+        if (
+            in_array(config('app.env'), [
+                SystemEnvironment::PRODUCTION->value,
+                SystemEnvironment::STAGING->value
+            ])
+        ) {
             return 's3';
+        }
+
+        if (config('app.env') === SystemEnvironment::LOCAL->value) {
+            return 'public';
         }
 
         return SystemEnvironment::LOCAL->value;

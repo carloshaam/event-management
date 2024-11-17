@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Web\{
+    Home\IndexHomeController,
+    Event\ShowEventController
+};
 use App\Http\Controllers\App\Event\{
     EditEventController,
     IndexEventController,
@@ -13,12 +17,14 @@ use App\Http\Controllers\App\Profile\{
     EditProfileController,
     UpdateProfileController
 };
-use App\Http\Controllers\Home\IndexHomeController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-Route::get('/', IndexHomeController::class)->name('home.index');
+Route::group(['as' => 'web.'], function () {
+    Route::get('/', IndexHomeController::class)->name('home.index');
+    Route::get('/events/{event:slug}', ShowEventController::class)->name('events.show');
+});
 
 Route::group(['as' => 'app.', 'prefix' => 'app', 'middleware' => 'auth'], function () {
     Route::group(['as' => 'events.', 'prefix' => 'events'], function () {

@@ -6,6 +6,7 @@ use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,16 +28,19 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
+        $fileName = fake()->image(public_path('storage/events'), 1600, 838, 'event');
+
         return [
             'visibility' => fake()->randomElement([VisibilityEnum::PRIVATE, VisibilityEnum::PUBLIC]),
             'stage' => fake()->randomElement([StageEnum::DRAFT, StageEnum::PUBLISHED]),
-            'title' => fake()->name,
-            'slug' => fake()->slug,
+            'cover' => basename($fileName),
+            'title' => fake()->title(),
+            'slug' => fake()->slug(),
             'description' => fake()->text(150),
             'start_time' => fake()->dateTime(),
             'end_time' => fake()->dateTime(now()->addDays(3)),
-            'category_id' => Category::factory(),
-            'created_by' => fake()->name,
+            'category_id' => Category::inRandomOrder()->first()->id,
+            'created_by' => User::inRandomOrder()->first()->id,
         ];
     }
 }

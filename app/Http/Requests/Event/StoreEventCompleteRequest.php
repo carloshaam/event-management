@@ -31,6 +31,7 @@ class StoreEventCompleteRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'place_name' => ['required', 'string', 'max:85', new MinWords()],
             'zip_code' => ['required', 'string', 'min:8', 'max:9'],
             'street' => ['required', 'string', 'max:100'],
             'number' => ['required', 'string', 'max:10'],

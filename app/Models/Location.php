@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
  * @property int $event_id
+ * @property string $place_name
  * @property string $zip_code
  * @property string $street
  * @property string $number
@@ -33,6 +35,7 @@ class Location extends Model
      */
     protected $fillable = [
         'event_id',
+        'place_name',
         'zip_code',
         'street',
         'number',
@@ -41,4 +44,14 @@ class Location extends Model
         'city',
         'state',
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationship methods
+    |--------------------------------------------------------------------------
+    */
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

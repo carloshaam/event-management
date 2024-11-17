@@ -8,6 +8,7 @@ readonly class CreateLocationWithEventDTO
 {
     public function __construct(
         public int $eventId,
+        public string $placeName,
         public string $zipCode,
         public string $street,
         public string $number,
@@ -21,6 +22,7 @@ readonly class CreateLocationWithEventDTO
     {
         return new self(
             eventId: $eventId,
+            placeName: $dto->placeName,
             zipCode: $dto->zipCode,
             street: $dto->street,
             number: $dto->number,
@@ -35,6 +37,7 @@ readonly class CreateLocationWithEventDTO
     {
         return [
             'event_id' => $this->eventId,
+            'place_name' => $this->placeName,
             'zip_code' => $this->zipCode,
             'street' => $this->street,
             'number' => $this->number,

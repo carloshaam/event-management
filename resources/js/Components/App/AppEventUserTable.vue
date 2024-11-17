@@ -54,7 +54,7 @@ const { filterForm, submitFilterForm } = useEventUserFilter();
           </div>
         </td>
         <td class="px-6 py-4">{{ event.title }}</td>
-        <td class="px-6 py-4">{{ event.start_time }}</td>
+        <td class="px-6 py-4">{{ event.start_time.formatted }}</td>
         <td class="px-6 py-4">{{ event.location.city }}</td>
         <td class="px-6 py-4">
           <Link :href="route('app.events.edit', { event: event.id })" class="font-medium text-blue-600 hover:underline">Editar</Link>
