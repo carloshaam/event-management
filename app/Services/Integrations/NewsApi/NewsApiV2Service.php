@@ -15,9 +15,14 @@ class NewsApiV2Service implements NewsApiInterface
         public Client $client,
     ) {}
 
-    public function listTopHeadlines(string $country = 'us', int $pageSize = 10)
-    {
+    public function listTopHeadlines(
+        string $country = 'us',
+        string $category = 'entertainment',
+        int $page = 1,
+        int $pageSize = 10
+    ) {
         try {
+            // TODO: usar Http
             $response = $this->client->request(
                 'GET',
                 '/v2/top-headlines',
@@ -28,6 +33,8 @@ class NewsApiV2Service implements NewsApiInterface
                     ],
                     'query' => [
                         'country' => $country,
+                        'category' => $category,
+                        'page' => $page,
                         'pageSize' => $pageSize,
                     ]
                 ]

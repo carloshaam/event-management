@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Location;
 
 use App\Contracts\Location\LocationRepositoryInterface;
-use App\DataTransferObjects\Location\CreateLocationDTO;
+use App\DataTransferObjects\Location\CreateLocationWithEventDTO;
 use App\Http\Resources\Location\LocationResource;
 use App\Models\Location;
 
@@ -15,7 +15,7 @@ readonly class LocationRepository implements LocationRepositoryInterface
         private Location $model
     ) {}
 
-    public function create(CreateLocationDTO $data): LocationResource
+    public function create(CreateLocationWithEventDTO $data): LocationResource
     {
         $location = $this->model->newQuery()->create($data->toArray());
 

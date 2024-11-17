@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
 use App\Observers\EventObserver;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Database\Factories\EventFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property int $id
  * @property VisibilityEnum $visibility
+ * @property StageEnum $stage
+ * @property string $cover
  * @property string $title
  * @property string $slug
  * @property string $description
@@ -48,6 +52,8 @@ class Event extends Model
      */
     protected $fillable = [
         'visibility',
+        'stage',
+        'cover',
         'title',
         'slug',
         'description',
@@ -66,6 +72,7 @@ class Event extends Model
     {
         return [
             'visibility' => VisibilityEnum::class,
+            'stage' => StageEnum::class,
             'start_time' => 'datetime',
             'end_time' => 'datetime',
         ];
@@ -83,6 +90,21 @@ class Event extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Local scope
+    |--------------------------------------------------------------------------
+    */
+    public function scopeCreatedBy(Builder $query, int $userId): void
+    {
+        $query->where(column: 'created_by', operator: '=', value: $userId);
+    }
+
+    public function scopePublished(Builder $query): void
+    {
+        $query->where(column: 'stage', operator: '=', value: StageEnum::PUBLISHED->value);
     }
 
     /*

@@ -48,7 +48,7 @@ class NewsApiTopHeadlinesCron extends Command
                 url: $article['url'],
                 url_to_image: $article['urlToImage'],
                 published_at: $publishedAt->toDateTimeString(),
-                content: $article['content'],
+                content: $article['content'] ?? '',
             );
 
             $articlesDTO[] = $articleDTO;

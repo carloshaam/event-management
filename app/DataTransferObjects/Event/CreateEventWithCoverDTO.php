@@ -6,15 +6,13 @@ namespace App\DataTransferObjects\Event;
 
 use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\UploadedFile;
 
-readonly class CreateEventDTO
+class CreateEventWithCoverDTO
 {
     public function __construct(
         public VisibilityEnum $visibility,
         public StageEnum $stage,
-        public ?UploadedFile $cover,
+        public ?string $cover,
         public string $title,
         public string $description,
         public string $startTime,
@@ -23,18 +21,18 @@ readonly class CreateEventDTO
         public int $createdBy,
     ) {}
 
-    public static function fromRequest(FormRequest $request): self
+    public static function fromCreateEventDTO(CreateEventDTO $dto, ?string $coverHash): self
     {
         return new self(
-            visibility: VisibilityEnum::from($request->input('visibility')),
-            stage: StageEnum::from($request->input('stage')),
-            cover: $request->hasFile('cover') ? $request->file('cover') : null,
-            title: $request->input('title'),
-            description: $request->input('description'),
-            startTime: $request->input('start_time'),
-            endTime: $request->input('end_time'),
-            categoryId: $request->input('category_id'),
-            createdBy: $request->user()->id,
+            visibility: $dto->visibility,
+            stage: $dto->stage,
+            cover: $coverHash,
+            title: $dto->title,
+            description: $dto->description,
+            startTime: $dto->startTime,
+            endTime: $dto->endTime,
+            categoryId: $dto->categoryId,
+            createdBy: $dto->createdBy,
         );
     }
 

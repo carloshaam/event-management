@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Location;
 
 use App\Actions\Location\CreateLocationAction;
-use App\DataTransferObjects\Location\CreateLocationDTO;
+use App\DataTransferObjects\Location\CreateLocationWithEventDTO;
 
 readonly class CreateLocationService
 {
@@ -13,7 +13,7 @@ readonly class CreateLocationService
         private CreateLocationAction $createLocationAction,
     ) {}
 
-    public function create(CreateLocationDTO $dto): void
+    public function create(CreateLocationWithEventDTO $dto): void
     {
         $this->createLocationAction->execute($dto);
     }

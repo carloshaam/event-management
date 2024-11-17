@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Event;
 
+use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
 use App\Rules\MinWords;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class StoreEventCompleteRequest extends FormRequest
 {
@@ -36,6 +38,7 @@ class StoreEventCompleteRequest extends FormRequest
             'neighborhood' => ['required', 'string', 'max:100'],
             'city' => ['required', 'string', 'max:80'],
             'state' => ['required', 'string', 'max:2'],
+            'cover' => ['nullable', File::types(['png', 'jpg'])->max(2 * 1024)],
             'title' => ['required', 'string', 'max:150', new MinWords(2)],
             'description' => ['required', 'string', 'max:255', new MinWords(5)],
             'start_time' => ['required', 'date', 'after:tomorrow'],
@@ -43,6 +46,7 @@ class StoreEventCompleteRequest extends FormRequest
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'created_by' => ['nullable'],
             'visibility' => ['required', Rule::enum(VisibilityEnum::class)],
+            'stage' => ['required', Rule::in(StageEnum::DRAFT->value, StageEnum::PUBLISHED->value)],
         ];
     }
 

@@ -8,6 +8,7 @@ export default function useEvent(data) {
   const errors = ref({});
   const form = reactive({
     visibility: null,
+    cover: null,
     title: null,
     description: null,
     start_time: null,
@@ -44,7 +45,11 @@ export default function useEvent(data) {
   const submit = () => {
     isLoading.value = true;
     axios
-      .post(route("app.events.store"), form)
+      .post(route("app.events.store"), form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then(response => {
         router.get(route("app.events.edit", response.data.data.id));
       })

@@ -6,7 +6,7 @@ namespace App\Actions\Event;
 
 use App\Contracts\Event\EventRepositoryInterface;
 use App\DataTransferObjects\Event\FilterEventUserDTO;
-use App\Http\Resources\Event\EventUserCollection;
+use App\Http\Resources\Event\EventIndividualCollection;
 
 final readonly class ListEventIndividualAction
 {
@@ -14,8 +14,8 @@ final readonly class ListEventIndividualAction
         private EventRepositoryInterface $repository,
     ) {}
 
-    public function execute(FilterEventUserDTO $data): EventUserCollection
+    public function execute(FilterEventUserDTO $data, int $userId): EventIndividualCollection
     {
-        return $this->repository->listUserEvents($data);
+        return $this->repository->listEventsIndividual($data, $userId);
     }
 }

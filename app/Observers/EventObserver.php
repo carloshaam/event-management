@@ -14,7 +14,7 @@ class EventObserver implements ShouldHandleEventsAfterCommit
      */
     public function created(Event $event): void
     {
-        //
+        // TODO: se o stage foi published disparar notificação.
     }
 
     /**

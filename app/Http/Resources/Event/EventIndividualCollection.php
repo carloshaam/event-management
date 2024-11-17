@@ -7,7 +7,7 @@ namespace App\Http\Resources\Event;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class EventUserCollection extends ResourceCollection
+class EventIndividualCollection extends ResourceCollection
 {
     /**
      * The resource that this resource collects.

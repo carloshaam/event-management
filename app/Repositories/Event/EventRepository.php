@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Repositories\Event;
 
 use App\Contracts\Event\EventRepositoryInterface;
-use App\DataTransferObjects\Event\CreateEventDTO;
+use App\DataTransferObjects\Event\CreateEventWithCoverDTO;
 use App\DataTransferObjects\Event\FilterEventDTO;
 use App\DataTransferObjects\Event\FilterEventUserDTO;
+use App\Http\Resources\Event\EventCollection;
 use App\Http\Resources\Event\EventResource;
-use App\Http\Resources\Event\EventUserCollection;
+use App\Http\Resources\Event\EventIndividualCollection;
 use App\Models\Event;
-use Illuminate\Support\Facades\Auth;
 
 readonly class EventRepository implements EventRepositoryInterface
 {
@@ -19,38 +19,32 @@ readonly class EventRepository implements EventRepositoryInterface
         private Event $model
     ) {}
 
-    public function create(CreateEventDTO $data): EventResource
+    public function create(CreateEventWithCoverDTO $data): EventResource
     {
         $event = $this->model->newQuery()->create($data->toArray());
 
         return new EventResource($event);
     }
 
-    public function listEvents(FilterEventDTO $data): EventUserCollection
+    public function listEvents(FilterEventDTO $data): EventCollection
     {
-        $events = $this->model->newQuery();
-
-        $events->with(['category', 'location']);
+        $events = $this->model->newQuery()->with(['category', 'location'])->published();
 
         if ($data->title) {
             $events->where('title', 'like', "%{$data->title}%");
         }
 
-        return new EventUserCollection($events->paginate());
+        return new EventCollection($events->paginate());
     }
 
-    public function listUserEvents(FilterEventUserDTO $data): EventUserCollection
+    public function listEventsIndividual(FilterEventUserDTO $data, $userId): EventIndividualCollection
     {
-        $events = $this->model->newQuery();
-
-        $events->with(['category', 'location']);
-
-        $events->where('created_by', '=', Auth::id());
+        $events = $this->model->newQuery()->with(['category', 'location'])->createdBy($userId);
 
         if ($data->title) {
             $events->where('title', 'like', "%{$data->title}%");
         }
 
-        return new EventUserCollection($events->paginate());
+        return new EventIndividualCollection($events->paginate());
     }
 }

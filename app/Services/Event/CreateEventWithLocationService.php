@@ -6,6 +6,7 @@ namespace App\Services\Event;
 
 use App\DataTransferObjects\Event\CreateEventDTO;
 use App\DataTransferObjects\Location\CreateLocationDTO;
+use App\DataTransferObjects\Location\CreateLocationWithEventDTO;
 use App\Services\Location\CreateLocationService;
 use Illuminate\Support\Facades\DB;
 
@@ -21,9 +22,9 @@ readonly class CreateEventWithLocationService
         return DB::transaction(function () use ($eventDTO, $locationDTO) {
             $event = $this->createEventService->create($eventDTO);
 
-            $locationDTO = $locationDTO->withEventId($event->id);
+            $location = CreateLocationWithEventDTO::fromCreateLocationDTO($locationDTO, $event->id);
 
-            $this->createLocationService->create($locationDTO);
+            $this->createLocationService->create($location);
 
             return $event;
         });

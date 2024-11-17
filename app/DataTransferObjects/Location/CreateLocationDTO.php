@@ -33,20 +33,6 @@ readonly class CreateLocationDTO
         );
     }
 
-    public function withEventId(int $eventId): self
-    {
-        return new self(
-            eventId: $eventId,
-            zipCode: $this->zipCode,
-            street: $this->street,
-            number: $this->number,
-            complement: $this->complement,
-            neighborhood: $this->neighborhood,
-            city: $this->city,
-            state: $this->state,
-        );
-    }
-
     public function toArray(): array
     {
         return [
@@ -59,5 +45,19 @@ readonly class CreateLocationDTO
             'city' => $this->city,
             'state' => $this->state,
         ];
+    }
+
+    public function withEventId(int $eventId): self
+    {
+        return new self(
+            eventId: $eventId,
+            zipCode: $this->zipCode,
+            street: $this->street,
+            number: $this->number,
+            complement: $this->complement,
+            neighborhood: $this->neighborhood,
+            city: $this->city,
+            state: $this->state,
+        );
     }
 }

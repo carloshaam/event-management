@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\DataTransferObjects\Event\CreateEventDTO;
 use App\DataTransferObjects\Location\CreateLocationDTO;
+use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
 use App\Http\Resources\Event\EventResource;
 use App\Models\Category;
@@ -28,6 +29,8 @@ test('can create an event', function () {
 
     $eventDTO = new CreateEventDTO(
         VisibilityEnum::PRIVATE,
+        StageEnum::DRAFT,
+        null,
         'Titulo teste',
         'Descrição teste',
         '2024-10-27T16:43',
@@ -79,6 +82,8 @@ test('creates unique slug if title already exists', function () {
 
     $eventDTO = new CreateEventDTO(
         VisibilityEnum::PRIVATE,
+        StageEnum::DRAFT,
+        null,
         'Titulo teste',
         'Descrição teste',
         '2024-10-27T16:43',

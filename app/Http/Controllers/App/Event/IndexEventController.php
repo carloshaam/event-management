@@ -18,7 +18,7 @@ final readonly class IndexEventController
     public function __invoke(Request $request): Response
     {
         return Inertia::render('App/Event/IndexEvent', [
-            'events' => fn () => $this->listEventIndividualService->listUserEvents($request->all()),
+            'events' => fn () => $this->listEventIndividualService->listEventsIndividual($request->user()->id, $request->all()),
         ]);
     }
 }
