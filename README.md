@@ -81,16 +81,10 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 - Vue
 - Tailwindcss
 
-## 📦 Instalação
+## 📦 Instalação e Uso
 
 ```bash
-composer install
-
-npm install
-
-php artisan migrate
-
-composer run dev
+docker-compose up -d --build
 ```
 
 ## 📆 Registro de alterações
