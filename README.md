@@ -17,16 +17,7 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 - [x] Excluir perfil.
 
 ### 2. CRUD de Eventos
-- [x] Criar formulário para cadastro de novos eventos (título, descrição, data, horário, local e categoria...).
-- [x] Adicionar visibilidade para evento.
-- [ ] Adicionar inclusão de capa para evento.
-- [ ] Adicionar cadastro ingresso e preço para o evento (limite de vagas e preço).
-- [ ] Implementar listagem de eventos disponíveis para visualização pública.
-- [x] Implementar listagem de eventos do usuário organizador.
-- [x] Implementar filtro da listagem de eventos do usuário organizador.
-- [ ] Permitir que organizadores editem os detalhes dos eventos criados.
-- [ ] Permitir que organizadores excluam eventos.
-- [ ] Adicionar tipo de evento (presencial, online ou digital).
+[Issue link](https://github.com/carloshaam/event-management/issues/1)
 
 ### 3. Inscrição em Eventos
 - [ ] Implementar sistema de inscrição para participantes em eventos.
