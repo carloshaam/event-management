@@ -40,6 +40,7 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 ### 7. Sistema de Pagamento
 - [ ] Integrar pagamento para eventos pagos (ex.: PayPal, Stripe).
 - [ ] Gerar e enviar comprovantes de pagamento.
+- [ ] Adiciona webhook/postback para organizador saber sobre os pagamentos.
 
 ### 8. Sistema de Avaliações e Feedback
 - [ ] Permitir que participantes deixem comentários e avaliações após o evento.
