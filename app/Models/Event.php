@@ -28,8 +28,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $description
  * @property string $start_time
  * @property string $end_time
- * @property string $category_id
- * @property string $created_by
+ * @property int $category_id
+ * @property int $created_by
  */
 #[ObservedBy([EventObserver::class])]
 class Event extends Model
@@ -93,6 +93,11 @@ class Event extends Model
         ];
     }
 
+    public function isDraft(): bool
+    {
+        return $this->stage === StageEnum::DRAFT;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Local scope
@@ -126,5 +131,10 @@ class Event extends Model
     public function location(): HasOne
     {
         return $this->hasOne(Location::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

@@ -29,9 +29,13 @@ Route::group(['as' => 'web.'], function () {
 Route::group(['as' => 'app.', 'prefix' => 'app', 'middleware' => 'auth'], function () {
     Route::group(['as' => 'events.', 'prefix' => 'events'], function () {
         Route::get('/', IndexEventController::class)->name('index');
-        Route::get('/create', CreateEventController::class)->middleware('verified')->name('create');
+        Route::get('/create', CreateEventController::class)
+             ->middleware('verified')
+             ->name('create');
         Route::post('/', StoreEventController::class)->name('store');
-        Route::get('/{event}/edit', EditEventController::class)->name('edit');
+        Route::get('/{event}/edit', EditEventController::class)
+             ->can('update', 'event')
+             ->name('edit');
     });
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
         Route::get('/', EditProfileController::class)->name('edit');

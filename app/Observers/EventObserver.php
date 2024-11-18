@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Events\EventRegistered;
 use App\Models\Event;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
 
@@ -14,7 +15,9 @@ class EventObserver implements ShouldHandleEventsAfterCommit
      */
     public function created(Event $event): void
     {
-        // TODO: se o stage foi published disparar notificação.
+        if ($event->isDraft()) {
+            event(new EventRegistered($event->load('user')));
+        }
     }
 
     /**
