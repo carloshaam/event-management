@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head, Link} from "@inertiajs/vue3";
+import {Head, Link, router} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -10,6 +10,8 @@ import {vMaska} from "maska/vue";
 import useEvent from "@/Composables/App/Event/useEvent.js";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import CoverInput from "@/Components/CoverInput.vue";
+import {reactive} from "vue";
+import useZipCode from "@/Composables/App/useZipCode.js";
 
 const props = defineProps({
   categories: {
@@ -20,18 +22,51 @@ const props = defineProps({
   }
 });
 
-const {
-  isLoading,
-  isLoadingSearchCEP,
-  errors,
-  form,
-  searchCEP,
-  submit: formSubmit
-} = useEvent({categories: props.categories});
+const {isLoadingZipCode, fetchZipCode} = useZipCode();
+const {isLoading, errors, createEvent} = useEvent();
 
-const submit = (stage) => {
-  form.stage = stage;
-  formSubmit();
+const form = reactive({
+  stage: null,
+  visibility: null,
+  cover: null,
+  title: null,
+  description: null,
+  start_time: null,
+  end_time: null,
+  category_id: props.categories || null,
+  place_name: null,
+  zip_code: null,
+  street: null,
+  number: null,
+  neighborhood: null,
+  complement: null,
+  city: null,
+  state: 'MG',
+});
+
+const searchZipCode = async (zipCode) => {
+  if (zipCode.length === 9) {
+    try {
+      const address = await fetchZipCode(zipCode);
+      form.street = address.logradouro;
+      form.neighborhood = address.bairro;
+      form.city = address.localidade;
+      form.state = address.uf;
+    } catch (err) {
+      alert('Erro ao buscar endereço: ' + err.message);
+    }
+  }
+};
+
+const submitFormEvent = async (stage) => {
+  try {
+    form.stage = stage;
+    const newEventId = await createEvent(form);
+
+    router.get(route('app.events.edit', newEventId.data.id));
+  } catch (error) {
+    console.log(error);
+  }
 };
 </script>
 
@@ -47,7 +82,7 @@ const submit = (stage) => {
       <div class="grid grid-cols-3 gap-4 my-4">
         <div></div>
         <div>
-          <form @submit.prevent="submit(form.stage)" :disabled="isLoading">
+          <form @submit.prevent="submitFormEvent(form.stage)" :disabled="isLoading">
             <!-- Start Event Location -->
             <div class="flex flex-col bg-white border rounded shadow-lg shadow-gray-100 mb-4">
               <div class="flex justify-between items-center border-b py-3 px-8">
@@ -66,8 +101,8 @@ const submit = (stage) => {
                       v-model="form.place_name"
                       required
                       autocomplete="place_name"
-                      :disabled="isLoadingSearchCEP"
-                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      :disabled="isLoadingZipCode"
+                      :class="isLoadingZipCode ? 'bg-gray-100' : ''"
                     />
                     <InputError
                       v-if="errors && errors.place_name"
@@ -84,8 +119,8 @@ const submit = (stage) => {
                       v-maska="'#####-###'"
                       v-model="form.zip_code"
                       autocomplete="zip_code"
-                      @keydown.tab="searchCEP($event.target.value)"
-                      :disabled="isLoadingSearchCEP"
+                      @keydown.tab="searchZipCode($event.target.value)"
+                      :disabled="isLoadingZipCode"
                     />
                     <InputError
                       v-if="errors && errors.zip_code"
@@ -101,8 +136,8 @@ const submit = (stage) => {
                       v-model="form.street"
                       required
                       autocomplete="street"
-                      :disabled="isLoadingSearchCEP"
-                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      :disabled="isLoadingZipCode"
+                      :class="isLoadingZipCode ? 'bg-gray-100' : ''"
                     />
                     <InputError
                       v-if="errors && errors.street"
@@ -133,8 +168,8 @@ const submit = (stage) => {
                       class="mt-1 block w-full"
                       v-model="form.complement"
                       autocomplete="complement"
-                      :disabled="isLoadingSearchCEP"
-                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      :disabled="isLoadingZipCode"
+                      :class="isLoadingZipCode ? 'bg-gray-100' : ''"
                     />
                     <InputError
                       v-if="errors && errors.complement"
@@ -150,8 +185,8 @@ const submit = (stage) => {
                       v-model="form.neighborhood"
                       required
                       autocomplete="neighborhood"
-                      :disabled="isLoadingSearchCEP"
-                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      :disabled="isLoadingZipCode"
+                      :class="isLoadingZipCode ? 'bg-gray-100' : ''"
                     />
                     <InputError
                       v-if="errors && errors.neighborhood"
@@ -164,8 +199,8 @@ const submit = (stage) => {
                       id="whatsapp"
                       v-model="form.state"
                       class="py-3 px-4 pe-9 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                      :disabled="isLoadingSearchCEP"
-                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      :disabled="isLoadingZipCode"
+                      :class="isLoadingZipCode ? 'bg-gray-100' : ''"
                     >
                       <option value="MG" selected>MG</option>
                       <option value="SP">SP</option>
@@ -184,8 +219,8 @@ const submit = (stage) => {
                       v-model="form.city"
                       required
                       autocomplete="city"
-                      :disabled="isLoadingSearchCEP"
-                      :class="isLoadingSearchCEP ? 'bg-gray-100' : ''"
+                      :disabled="isLoadingZipCode"
+                      :class="isLoadingZipCode ? 'bg-gray-100' : ''"
                     />
                     <InputError
                       v-if="errors && errors.city"
@@ -367,7 +402,7 @@ const submit = (stage) => {
             </div>
             <!-- End Visibility Event -->
             <div class="flex items-center justify-end">
-              <PrimaryButton type="button" @click="submit('published')" class="mt-4" :disabled="isLoading">
+              <PrimaryButton type="button" @click="submitFormEvent('published')" class="mt-4" :disabled="isLoading">
                 <template v-if="isLoading">
                   <div role="status">
                     <svg aria-hidden="true" class="w-4 h-4 text-gray-200 animate-spin fill-blue-600"
@@ -386,7 +421,7 @@ const submit = (stage) => {
                   Publicar evento
                 </template>
               </PrimaryButton>
-              <SecondaryButton type="button" @click="submit('draft')" class="mt-4 ml-2" :disabled="isLoading">
+              <SecondaryButton type="button" @click="submitFormEvent('draft')" class="mt-4 ml-2" :disabled="isLoading">
                 <template v-if="isLoading">
                   <div role="status">
                     <svg aria-hidden="true" class="w-4 h-4 text-gray-200 animate-spin fill-blue-600"
