@@ -1,5 +1,6 @@
 import {useForm} from '@inertiajs/vue3';
 
+// TODO: organizar nomeclartura e tirar o form.
 export default function useEventUserFilter() {
   const filterForm = useForm({
     title: '',

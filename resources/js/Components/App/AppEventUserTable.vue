@@ -3,6 +3,8 @@ import {Link} from "@inertiajs/vue3";
 import Pagination from "@/Components/Pagination.vue";
 import TextInput from "@/Components/TextInput.vue";
 import useEventUserFilter from "@/Composables/App/Event/useEventUserFilter.js";
+import DetailEventModal from "@/Pages/App/Event/DetailEventModal.vue";
+import {ref} from "vue";
 
 const props = defineProps({
   events: {
@@ -12,6 +14,18 @@ const props = defineProps({
 });
 
 const { filterForm, submitFilterForm } = useEventUserFilter();
+const showDetailEventModal = ref(false);
+const selectedEventId = ref(null);
+
+const openDetailEventModal = (itemId) => {
+  selectedEventId.value = itemId;
+  showDetailEventModal.value = true;
+};
+
+const closeDetailEventModal = () => {
+  showDetailEventModal.value = false;
+  selectedEventId.value = null;
+};
 </script>
 
 <template>
@@ -57,12 +71,25 @@ const { filterForm, submitFilterForm } = useEventUserFilter();
         <td class="px-6 py-4">{{ event.start_time.formatted }}</td>
         <td class="px-6 py-4">{{ event.location.city }}</td>
         <td class="px-6 py-4">
-          <Link :href="route('app.events.edit', { event: event.id })" class="font-medium text-blue-600 hover:underline">Editar</Link>
+          <div class="flex space-x-4">
+            <div
+                class="font-medium text-blue-600 hover:underline cursor-pointer"
+                @click="openDetailEventModal(event.id)"
+            >
+              Visualizar
+            </div>
+            <Link :href="route('app.events.edit', { event: event.id })" class="font-medium text-blue-600 hover:underline">Editar</Link>
+          </div>
         </td>
       </tr>
       </tbody>
     </table>
     <Pagination :pagination="events.meta"></Pagination>
+    <DetailEventModal
+        v-if="showDetailEventModal"
+        :item-id="selectedEventId"
+        @close="closeDetailEventModal"
+    />
   </div>
 </template>
 
