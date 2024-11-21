@@ -245,10 +245,11 @@ const submitFormEvent = async (stage) => {
                     <span class="text-sm font-normal text-gray-500">
                       A dimensão recomendada é de 1600 x 838
                       (mesma proporção do formato utilizado nas páginas de evento no Facebook).
-                      Formato JPEG, GIF ou PNG de no máximo 2MB.
+                      Formato JPEG ou PNG de no máximo 2MB.
                     </span>
                     <div class="p-2 border-2 border-dashed border-gray-200 rounded-md mt-4">
                       <CoverInput
+                        accepted-types="image/png, image/jpeg"
                         v-model="form.cover"
                         defaultSrc="/images/cover-default.png"
                         @update:modelValue="form.cover_url ='/images/cover-default.png'"

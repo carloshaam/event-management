@@ -4,6 +4,10 @@ export default {
   props: {
     modelValue: File,
     defaultSrc: String,
+    acceptedTypes: {
+      type: String,
+      default: "image/*",
+    },
   },
   watch: {
     modelValue: function (file) {
@@ -41,7 +45,7 @@ export default {
 
 <template>
   <div>
-    <input type="file" accept="image/*" class="hidden" ref="file" @change="change" />
+    <input type="file" :accept="acceptedTypes" class="hidden" ref="file" @change="change" />
     <div class="relative inline-block">
       <img :src="src" alt="Thumb" class="w-full h-full" />
       <div class="absolute inset-0 flex items-end p-4 bg-black bg-opacity-25">
