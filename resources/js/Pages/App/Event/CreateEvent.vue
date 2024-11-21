@@ -251,7 +251,7 @@ const submitFormEvent = async (stage) => {
                       <CoverInput
                         accepted-types="image/png, image/jpeg"
                         v-model="form.cover"
-                        defaultSrc="/images/cover-default.png"
+                        default-src="/images/cover-default.png"
                         @update:modelValue="form.cover_url ='/images/cover-default.png'"
                       />
                     </div>
