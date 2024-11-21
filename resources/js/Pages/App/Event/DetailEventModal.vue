@@ -75,7 +75,7 @@ watch(() => props.itemId, (newId) => {
               </button>
             </div>
             <div class="aspect-w-16 aspect-h-8">
-              <img class="w-full object-cover rounded-t-md" :src="details.data.cover.path" alt="Modal Hero Image">
+              <img class="w-full max-h-96 object-fit-cover rounded-t-md" :src="details.data.cover.path" alt="Modal Hero Image">
             </div>
             <div class="p-4 sm:p-10 overflow-y-auto">
               <p>

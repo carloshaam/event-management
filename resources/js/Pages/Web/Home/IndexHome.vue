@@ -56,8 +56,8 @@ const props = defineProps({
               class="group flex flex-col bg-white border shadow-sm rounded-md hover:shadow-md focus:outline-none focus:shadow-md transition"
               :href="route('web.events.show', {event: event.slug})"
             >
-              <div class="aspect-w-16 aspect-h-9">
-                <img class="w-full object-cover rounded-t-md" :src="event.cover.path" alt="Blog Image">
+              <div class="aspect-w-16 aspect-h-8">
+                <img class="w-full max-h-36 object-fit-cover rounded-t-md" :src="event.cover.path" alt="Blog Image">
               </div>
               <div class="p-4 md:p-5">
                 <p class="mt-2 text-md uppercase font-bold text-blue-600">
