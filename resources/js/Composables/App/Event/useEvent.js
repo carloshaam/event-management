@@ -28,9 +28,22 @@ export default function useEvent() {
     }
   };
 
+  const viewEvent = async (eventId) => {
+    try {
+      const response = await axios.get(
+        route('app.events.view', eventId)
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     isLoading,
     errors,
-    createEvent
+    createEvent,
+    viewEvent,
   };
 }
