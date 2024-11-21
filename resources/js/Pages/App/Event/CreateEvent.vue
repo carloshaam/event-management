@@ -391,13 +391,13 @@ const submitFormEvent = async (stage) => {
                           class="w-full py-4 ms-2 text-sm font-medium text-gray-900">
                           {{ label.name }}
                         </label>
-                        <InputError
-                          v-if="errors && errors.visibility"
-                          :message="errors.visibility[0]"
-                        />
                       </div>
                     </div>
                   </template>
+                  <InputError
+                      v-if="errors && errors.visibility"
+                      :message="errors.visibility[0]"
+                  />
                 </div>
               </div>
             </div>

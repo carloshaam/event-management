@@ -1,6 +1,9 @@
 # Utilizar a imagem PHP com FPM
 FROM php:8.3-fpm
 
+## Diretório da aplicação
+ARG APP_DIR=/var/www/html
+
 # Versão da Lib do Redis para PHP
 ARG REDIS_LIB_VERSION=5.3.7
 
@@ -33,16 +36,16 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Define o diretório de trabalho da aplicação
-WORKDIR /var/www/html
+WORKDIR $APP_DIR
 
-# Copia o código da aplicação
-COPY . .
+# Define permissões para diretórios de armazenamento e cache
+RUN chown www-data:www-data $APP_DIR
+
+COPY --chown=www-data:www-data . .
+RUN rm -rf vendor
 
 # Instala dependências do projeto PHP e Node.js
 RUN composer install --no-interaction && npm install
-
-# Define permissões para diretórios de armazenamento e cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Copia configuração do Supervisor
 COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
