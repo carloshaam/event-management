@@ -37,7 +37,9 @@ Route::group(['as' => 'app.', 'prefix' => 'app', 'middleware' => 'auth'], functi
         Route::get('/{event}/edit', EditEventController::class)
              ->can('update', 'event')
              ->name('edit');
-        Route::get('/{event}', ViewEventController::class)->name('show');
+        Route::get('/{event}', ViewEventController::class)
+             ->can('update', 'event')
+             ->name('show');
     });
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
         Route::get('/', EditProfileController::class)->name('edit');
