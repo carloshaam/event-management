@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\Event\PubliclyAccessible;
 use App\Http\Controllers\Web\{
     Home\IndexHomeController,
     Event\ShowEventController
@@ -25,7 +26,7 @@ require __DIR__ . '/auth.php';
 Route::group(['as' => 'web.'], function () {
     Route::get('/', IndexHomeController::class)->name('home.index');
     Route::get('/events/{event:slug}', ShowEventController::class)
-         ->can('view', 'event')
+         ->middleware(PubliclyAccessible::class)
          ->name('events.show');
 });
 

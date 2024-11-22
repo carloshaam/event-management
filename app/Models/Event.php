@@ -103,6 +103,16 @@ class Event extends Model
         return $this->stage === StageEnum::PUBLISHED;
     }
 
+    public function isClosed(): bool
+    {
+        return $this->stage === StageEnum::CLOSED;
+    }
+
+    public function isPrivate(): bool
+    {
+        return $this->visibility === VisibilityEnum::PRIVATE;
+    }
+
     public function isPublic(): bool
     {
         return $this->visibility === VisibilityEnum::PUBLIC;
@@ -111,6 +121,11 @@ class Event extends Model
     public function isPubliclyAccessible(): bool
     {
         return $this->isPublished() && $this->isPublic();
+    }
+
+    public function isPrivateAndNotPublished(): bool
+    {
+        return $this->isClosed() || $this->isDraft() || $this->isPrivate();
     }
 
     /*
