@@ -58,7 +58,7 @@ test('can create an event cover can be uploaded', function () {
     $startTime = Carbon::now()->addDays(2)->format('Y-m-d\TH:i');
     $endTime = Carbon::now()->addDays(3)->format('Y-m-d\TH:i');
 
-    Storage::fake('events');
+    Storage::fake('public');
 
     $file = UploadedFile::fake()->image('cover.jpg');
 

@@ -1,4 +1,3 @@
-# GitHub Action for Laravel
 name: Testing Laravel
 on: [push, pull_request]
 jobs:
@@ -41,7 +40,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Versão compatível com Vite
+          node-version: '18'
 
       - name: Install frontend dependencies
         run: npm ci
