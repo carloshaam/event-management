@@ -108,6 +108,11 @@ class Event extends Model
         return $this->visibility === VisibilityEnum::PUBLIC;
     }
 
+    public function isPubliclyAccessible(): bool
+    {
+        return $this->isPublished() && $this->isPublic();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Local scope
