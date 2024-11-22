@@ -47,7 +47,7 @@ class StoreEventCompleteRequest extends FormRequest
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'created_by' => ['nullable'],
             'visibility' => ['required', Rule::enum(VisibilityEnum::class)],
-            'stage' => ['required', Rule::in(StageEnum::DRAFT->value, StageEnum::PUBLISHED->value)],
+            'stage' => ['required', Rule::in(StageEnum::DRAFT, StageEnum::PUBLISHED)],
         ];
     }
 

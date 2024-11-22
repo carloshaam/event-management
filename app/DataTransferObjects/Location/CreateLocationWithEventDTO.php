@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects\Location;
 
-readonly class CreateLocationWithEventDTO
+final readonly class CreateLocationWithEventDTO
 {
     public function __construct(
         public int $eventId,

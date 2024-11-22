@@ -16,13 +16,16 @@ class NewsApiServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // TODO: melhorar essa integração
         $this->app->singleton(NewsApiInterface::class, function ($app) {
             $config = $app['config']['services']['newsapi'];
 
             $client = new Client([
                 'base_uri' => $config['api_base_url'],
                 'timeout'  => 30,
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'X-Api-Key' => $config['api_key'],
+                ]
             ]);
 
             return new NewsApiV2Service($client);

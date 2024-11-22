@@ -98,6 +98,16 @@ class Event extends Model
         return $this->stage === StageEnum::DRAFT;
     }
 
+    public function isPublished(): bool
+    {
+        return $this->stage === StageEnum::PUBLISHED;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->visibility === VisibilityEnum::PUBLIC;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Local scope

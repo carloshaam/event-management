@@ -7,7 +7,7 @@ namespace App\DataTransferObjects\Event;
 use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
 
-class CreateEventWithCoverDTO
+final class CreateEventWithCoverDTO
 {
     public function __construct(
         public VisibilityEnum $visibility,

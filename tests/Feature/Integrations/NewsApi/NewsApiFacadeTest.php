@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Facades\Integrations\NewsApiFacade;
 use Illuminate\Support\Facades\Http;
 
+// TODO: refazer testes
 it('can get articles from the API', function () {
     $mockResponse = [
         'status' => 'ok',
@@ -18,7 +19,6 @@ it('can get articles from the API', function () {
                 'url' => "https://www.usatoday.com/story/sports/mlb/2024/10/27/shohei-ohtani-injury-update-shoulder-dodgers-world-series-status/75879630007/",
                 'urlToImage' => "https://www.usatoday.com/gcdn/authoring/authoring-images/2024/10/27/USAT/75879699007-usatsi-24598026.jpg?crop=1536,864,x226,y247&width=1536&height=864&format=pj",
                 'publishedAt' => "2024-10-27T22:18:45Z",
-                'content' => "NEW YORK Se Shohei Ohtani aguentar a dor, ele jogará no Jogo 3 da World Series para os Los Angeles Dodgers.\n\nO gerente Dave Roberts disse na noite de domingo no Yankee Stadium que espera que Ohtani… [+2696 chars]",
             ],
         ],
     ];

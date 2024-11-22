@@ -7,7 +7,7 @@ namespace App\Services\Integrations\NewsApi;
 use App\Contracts\Integrations\NewsAPI\NewsApiInterface;
 use App\Exceptions\NewsApi\NewsApiException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\GuzzleException;
 
 class NewsApiV2Service implements NewsApiInterface
 {
@@ -22,15 +22,9 @@ class NewsApiV2Service implements NewsApiInterface
         int $pageSize = 10
     ) {
         try {
-            // TODO: usar Http
-            $response = $this->client->request(
-                'GET',
+            $response = $this->client->get(
                 '/v2/top-headlines',
                 [
-                    'headers'  => [
-                        'Accept' => 'application/json',
-                        'X-Api-Key' =>config('newsapi.api_key'),
-                    ],
                     'query' => [
                         'country' => $country,
                         'category' => $category,
@@ -41,7 +35,7 @@ class NewsApiV2Service implements NewsApiInterface
             );
 
             return json_decode($response->getBody()->getContents(), true);
-        } catch (RequestException $e) {
+        } catch (GuzzleException $e) {
             info('News API request failed: ' . $e->getMessage());
             throw new NewsApiException('News API request failed: ', 0, $e);
         }

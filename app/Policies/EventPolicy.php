@@ -23,7 +23,7 @@ class EventPolicy
      */
     public function view(User $user, Event $event): bool
     {
-        //
+        return $event->isPublished() && $event->isPublic();
     }
 
     /**

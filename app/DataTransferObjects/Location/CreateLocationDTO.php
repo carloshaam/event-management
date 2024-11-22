@@ -6,7 +6,7 @@ namespace App\DataTransferObjects\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-readonly class CreateLocationDTO
+final readonly class CreateLocationDTO
 {
     public function __construct(
         public ?int $eventId,

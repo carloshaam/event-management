@@ -9,7 +9,7 @@ use App\Enums\VisibilityEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 
-readonly class CreateEventDTO
+final readonly class CreateEventDTO
 {
     public function __construct(
         public VisibilityEnum $visibility,

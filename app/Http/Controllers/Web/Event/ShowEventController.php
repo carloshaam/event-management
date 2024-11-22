@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ShowEventController
+final readonly class ShowEventController
 {
     public function __invoke(Event $event, Request $request): Response
     {

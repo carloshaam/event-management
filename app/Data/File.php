@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Data;
 
-readonly class File
+final readonly class File
 {
     public function __construct(
         private string $name,

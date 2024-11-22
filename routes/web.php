@@ -24,7 +24,9 @@ require __DIR__ . '/auth.php';
 
 Route::group(['as' => 'web.'], function () {
     Route::get('/', IndexHomeController::class)->name('home.index');
-    Route::get('/events/{event:slug}', ShowEventController::class)->name('events.show');
+    Route::get('/events/{event:slug}', ShowEventController::class)
+         ->can('view', 'event')
+         ->name('events.show');
 });
 
 Route::group(['as' => 'app.', 'prefix' => 'app', 'middleware' => 'auth'], function () {
