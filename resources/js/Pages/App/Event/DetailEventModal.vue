@@ -41,21 +41,35 @@ watch(() => props.itemId, (newId) => {
 
 <template>
   <Teleport to="body">
-    <div
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-      @click.self="close"
-    >
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div class="bg-white rounded-md shadow-lg w-[calc(50%-2rem)] relative">
+        <div class="absolute top-2 z-[10] end-2">
+          <button
+              type="button"
+              class="inline-flex justify-center items-center size-8 text-sm font-semibold rounded-md border border-transparent bg-white text-black hover:bg-white/20 hover:border-gray-200/20 disabled:opacity-50 disabled:pointer-events-none" aria-label="Close"
+              @click="close"
+          >
+            <span class="sr-only">Close</span>
+            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
 
         <template v-if="loading">
-          <p class="h-4 bg-gray-200 rounded-full" style="width: 40%;"></p>
+          <div class="p-6">
+            <div class="flex animate-pulse">
+              <div class="mt-2 w-full">
+                <span class="size-48 w-full block bg-gray-200 rounded"></span>
+                <p class="mt-5 h-4 bg-gray-200 rounded-full" style="width: 40%;"></p>
 
-          <ul class="mt-5 space-y-3">
-            <li class="w-full h-4 bg-gray-200 rounded-full"></li>
-            <li class="w-full h-4 bg-gray-200 rounded-full"></li>
-            <li class="w-full h-4 bg-gray-200 rounded-full"></li>
-            <li class="w-full h-4 bg-gray-200 rounded-full"></li>
-          </ul>
+                <ul class="mt-5 space-y-3">
+                  <li class="w-full h-4 bg-gray-200 rounded-full"></li>
+                  <li class="w-full h-4 bg-gray-200 rounded-full"></li>
+                  <li class="w-full h-4 bg-gray-200 rounded-full"></li>
+                  <li class="w-full h-4 bg-gray-200 rounded-full"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </template>
 
         <template v-else-if="error">
@@ -64,16 +78,6 @@ watch(() => props.itemId, (newId) => {
 
         <template v-else>
           <div class="relative flex flex-col bg-white shadow-lg rounded-md">
-            <div class="absolute top-2 z-[10] end-2">
-              <button
-                type="button"
-                class="inline-flex justify-center items-center size-8 text-sm font-semibold rounded-md border border-transparent bg-white text-black hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none" aria-label="Close"
-                @click="close"
-              >
-                <span class="sr-only">Close</span>
-                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-              </button>
-            </div>
             <div class="aspect-w-16 aspect-h-8">
               <img class="w-full max-h-96 object-fit-cover rounded-t-md" :src="details.data.cover.path" alt="Modal Hero Image">
             </div>
