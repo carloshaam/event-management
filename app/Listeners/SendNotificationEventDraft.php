@@ -11,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class SendNotificationEventDraft implements ShouldQueue
+final class SendNotificationEventDraft implements ShouldQueue
 {
     use InteractsWithQueue;
 
@@ -32,7 +32,7 @@ class SendNotificationEventDraft implements ShouldQueue
      */
     public function handle(EventRegistered $event): void
     {
-        info(json_encode($event->event->id));
+        //info(json_encode($event->event->id));
         $event->event->user->notify(new EventDraftRegistrationNotification($event->event));
     }
 
