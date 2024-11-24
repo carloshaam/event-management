@@ -15,9 +15,7 @@ class EventObserver implements ShouldHandleEventsAfterCommit
      */
     public function created(Event $event): void
     {
-        if ($event->isDraft()) {
-            event(new EventRegistered($event->load('user')));
-        }
+        event(new EventRegistered($event->load('user')));
     }
 
     /**
