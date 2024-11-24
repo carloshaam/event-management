@@ -32,7 +32,6 @@ final class SendNotificationEventDraft implements ShouldQueue
      */
     public function handle(EventRegistered $event): void
     {
-        //info(json_encode($event->event->id));
         $event->event->user->notify(new EventDraftRegistrationNotification($event->event));
     }
 

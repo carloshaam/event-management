@@ -7,7 +7,6 @@ namespace App\Models;
 use App\Casts\TimestampCast;
 use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
-use App\Events\EventRegistered;
 use App\Observers\EventObserver;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Database\Factories\EventFactory;
@@ -63,10 +62,6 @@ class Event extends Model
         'end_time',
         'category_id',
         'created_by',
-    ];
-
-    protected $dispatchesEvents = [
-        'created' => EventRegistered::class,
     ];
 
     /**

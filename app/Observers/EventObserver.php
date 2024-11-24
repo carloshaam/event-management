@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Events\EventRegistered;
 use App\Models\Event;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
 
-class EventObserver implements ShouldHandleEventsAfterCommit
+final readonly class EventObserver implements ShouldHandleEventsAfterCommit
 {
     /**
      * Handle the Event "created" event.
      */
     public function created(Event $event): void
     {
-        //
+        event(new EventRegistered($event));
     }
 
     /**
