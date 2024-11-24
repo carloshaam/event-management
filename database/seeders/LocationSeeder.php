@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Event;
 use App\Models\Location;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,6 @@ class LocationSeeder extends Seeder
      */
     public function run(): void
     {
-        Location::factory()->count(1)->create();
+        Location::factory()->has(Event::factory())->count(1)->create();
     }
 }
