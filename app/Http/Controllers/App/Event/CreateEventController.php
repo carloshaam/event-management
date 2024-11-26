@@ -16,6 +16,7 @@ final readonly class CreateEventController
         return Inertia::render('App/Event/CreateEvent', [
             'categories' => [],
             'visibilities' => EnumHelper::visibilities(),
+            'states' => EnumHelper::states(),
         ]);
     }
 }

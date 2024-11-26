@@ -6,7 +6,7 @@ namespace App\Support;
 
 use Carbon\CarbonInterface;
 
-class EventDateForHumanHelper
+class DateTimeRangeForHumanSupport
 {
     public static function date(CarbonInterface $startTime, CarbonInterface $endTime): string
     {

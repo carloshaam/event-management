@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Utilities;
 
+use App\Enums\StateEnum;
 use App\Enums\VisibilityEnum;
 
 enum EnumHelper
@@ -17,6 +18,18 @@ enum EnumHelper
                 'value' => $visibility->value,
             ],
             VisibilityEnum::cases(),
+        );
+    }
+
+    public static function states(): array
+    {
+        return array_map(
+            fn(StateEnum $state)
+                => [
+                'name' => $state->text(),
+                'value' => $state->value,
+            ],
+            StateEnum::cases(),
         );
     }
 }

@@ -39,7 +39,11 @@ class StoreEventCompleteRequest extends FormRequest
             'neighborhood' => ['required', 'string', 'max:100'],
             'city' => ['required', 'string', 'max:80'],
             'state' => ['required', 'string', 'max:2'],
-            'cover' => ['nullable', File::types(['png', 'jpg'])->max(2 * 1024)],
+            'cover' => [
+                'nullable',
+                File::types(['png', 'jpg'])->max(2 * 1024),
+                'required_if:stage,'.StageEnum::PUBLISHED->value,
+            ],
             'title' => ['required', 'string', 'max:150', new MinWords(2)],
             'description' => ['required', 'string', 'max:255', new MinWords(5)],
             'start_time' => ['required', 'date', 'after:tomorrow'],

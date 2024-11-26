@@ -2,12 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Support;
+namespace App\Http\Resources;
 
-readonly class EventDate
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class DateTimeResource extends JsonResource
 {
-    public static function date($date): array
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
     {
+        $date = $this->resource;
+
         return [
             'original' => $date->toIso8601String(),
             'formatted' => $date->translatedFormat('d M Y, H:i T'),

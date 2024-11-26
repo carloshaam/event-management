@@ -16,10 +16,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $zip_code
  * @property string $street
  * @property string $number
- * @property string $complement
+ * @property string|null $complement
  * @property string $neighborhood
  * @property string $city
  * @property string $state
+ * @property-read Event $event
  */
 class Location extends Model
 {

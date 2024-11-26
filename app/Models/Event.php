@@ -17,19 +17,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property VisibilityEnum $visibility
  * @property StageEnum $stage
- * @property string $cover
+ * @property UploadedFile|string|null $cover
  * @property string $title
  * @property string $slug
  * @property string $description
- * @property string $start_time
- * @property string $end_time
+ * @property Carbon|string $start_time
+ * @property Carbon|string $end_time
  * @property int $category_id
  * @property int $created_by
+ * @property-read Category $category
+ * @property-read User $user
+ * @property-read Location $location
  */
 #[ObservedBy([EventObserver::class])]
 class Event extends Model
