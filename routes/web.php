@@ -11,7 +11,6 @@ use App\Http\Controllers\App\Event\{
     EditEventController,
     IndexEventController,
     CreateEventController,
-    ViewEventController,
     StoreEventController
 };
 use App\Http\Controllers\App\Profile\{
@@ -23,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-Route::group(['as' => 'web.'], function () {
+Route::group(['as' => 'public.'], function () {
     Route::get('/', IndexHomeController::class)->name('home.index');
     Route::get('/events/{event:slug}', ShowEventController::class)
          ->middleware(PubliclyAccessible::class)
@@ -40,9 +39,6 @@ Route::group(['as' => 'app.', 'prefix' => 'app', 'middleware' => 'auth'], functi
         Route::get('/{event}/edit', EditEventController::class)
              ->can('update', 'event')
              ->name('edit');
-        Route::get('/{event}', ViewEventController::class)
-             ->can('update', 'event')
-             ->name('view');
     });
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
         Route::get('/', EditProfileController::class)->name('edit');

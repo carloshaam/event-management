@@ -31,7 +31,7 @@ export default function useEvent() {
   const viewEvent = async (eventId) => {
     try {
       const response = await axios.get(
-        route('app.events.view', eventId)
+        route('api.v1.events.view', eventId)
       );
 
       return response.data;

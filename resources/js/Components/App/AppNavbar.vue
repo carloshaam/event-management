@@ -35,7 +35,7 @@ onMounted(() => {
             <!-- Logo and Site Name -->
             <div class="flex-shrink-0 flex items-center">
               <!--              <img class="h-8 w-auto" src="logo_url" alt="Logo">-->
-              <Link :href="route('web.home.index')" class="font-semibold text-xl">
+              <Link :href="route('public.home.index')" class="font-semibold text-xl">
                 Event Management
               </Link>
             </div>
@@ -116,7 +116,7 @@ onMounted(() => {
                               </div>
                             </div>-->
               <template v-else>
-                <!--                <Link :href="route('web.home.index')" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                <!--                <Link :href="route('public.home.index')" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                   Crie seu evento
                                 </Link>-->
                 <Link :href="route('login')"

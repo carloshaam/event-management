@@ -13,7 +13,10 @@ export default function useZipCode() {
 
       isLoadingZipCode.value = true;
 
-      const response = await axios.get(`https://viacep.com.br/ws/${zipCode}/json/`);
+      const response = await axios.get(`https://viacep.com.br/ws/${zipCode}/json/`, {
+        withCredentials: false,
+        withXSRFToken: false,
+      });
 
       return response.data;
     } catch (error) {

@@ -24,7 +24,7 @@ import {Link} from '@inertiajs/vue3';
           <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <!-- Logo and Site Name -->
             <div class="flex-shrink-0 flex items-center">
-              <Link :href="route('web.home.index')" class="font-semibold text-xl">
+              <Link :href="route('public.home.index')" class="font-semibold text-xl">
                 Event Management
               </Link>
             </div>
@@ -56,6 +56,9 @@ import {Link} from '@inertiajs/vue3';
                       <span class="block text-sm  text-gray-500 truncate">{{ $page.props.auth.user.email }}</span>
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
+                      <li>
+                        <Link :href="route('app.profile.edit')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Meu perfil</Link>
+                      </li>
                       <li>
                         <Link :href="route('app.events.index')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Meus eventos</Link>
                       </li>
