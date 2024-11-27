@@ -1,8 +1,8 @@
 <script setup>
-import {Head, Link} from "@inertiajs/vue3";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import AppEmptyEventState from "@/Components/App/AppEmptyEventState.vue";
-import AppEventUserTable from "@/Components/App/AppEventUserTable.vue";
+import {Head} from "@inertiajs/vue3";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import EventCreateOptionCard from "@/Components/App/Event/EventCreateOptionCard.vue";
+import EventIndividualList from "@/Components/App/Event/EventIndividualList.vue";
 
 const props = defineProps({
   events: Object,
@@ -11,70 +11,17 @@ const props = defineProps({
 
 <template>
   <Head title="Meus eventos"/>
-  <AuthenticatedLayout>
+  <AppLayout>
     <template v-slot:navbar>
       Meus eventos
     </template>
-    <div class="container max-w-screen-7xl mx-auto">
-      <div class="grid grid-cols-4 gap-4 my-4">
-        <div class="col-span-1">
-          <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-md shadow sm:p-6">
-            <h5 class="mb-3 text-base font-semibold text-gray-900 md:text-xl">
-              Olá, {{ $page.props.auth.user.short_name }}!
-            </h5>
-            <p class="text-sm font-normal text-gray-500">Já publicou seu evento?</p>
-            <ul class="my-4 space-y-3">
-              <li>
-                <Link :href="route('app.events.create')" class="flex items-center p-3 text-base font-bold text-gray-900 rounded-md bg-gray-200 hover:bg-gray-100 group hover:shadow">
-                  <span class="flex-1 whitespace-nowrap">Criar evento presencial</span>
-                  <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded">Popular</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                    :href="route('app.events.index')"
-                    class="cursor-not-allowed pointer-events-none flex items-center p-3 text-base font-bold text-gray-900 rounded-md bg-gray-100 hover:bg-gray-100 group hover:shadow"
-                >
-                  <span class="flex-1 whitespace-nowrap">Criar evento online</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  :href="route('app.events.index')"
-                  class="cursor-not-allowed pointer-events-none flex items-center p-3 text-base font-bold text-gray-900 rounded-md bg-gray-100 hover:bg-gray-100 group hover:shadow"
-                >
-                  <span class="flex-1 whitespace-nowrap">Criar conteúdo digital</span>
-                </Link>
-              </li>
-            </ul>
-            <div>
-              <span class="inline-flex items-center text-xs font-normal text-gray-500">
-                Você tem total autonomia para cadastrar, gerenciar e acompanhar todas as informações de seu evento.
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="col-span-3">
-          <div
-              class="flex flex-col bg-white border shadow-sm rounded-md">
-            <div
-                class="bg-gray-200 border-b rounded-t-md pt-3 px-4 md:pt-4 md:px-5">
-              <nav class="flex gap-x-2">
-                <Link
-                  class="-mb-px py-3 px-4 bg-white text-sm font-medium text-center border border-b-transparent text-gray-500 rounded-t-lg hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:z-10"
-                  :href="route('app.events.index')"
-                >
-                  Meus eventos
-                </Link>
-              </nav>
-            </div>
-            <AppEmptyEventState v-if="events.data.length === 0" />
-            <AppEventUserTable v-else :events="events" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </AuthenticatedLayout>
+    <template v-slot:aside>
+      <EventCreateOptionCard />
+    </template>
+    <template v-slot:main>
+      <EventIndividualList :events="props.events" />
+    </template>
+  </AppLayout>
 </template>
 
 <style scoped>

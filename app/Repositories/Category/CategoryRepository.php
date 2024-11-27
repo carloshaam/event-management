@@ -20,4 +20,11 @@ readonly class CategoryRepository implements CategoryRepositoryInterface
 
         return new CategoryCollection($events);
     }
+
+    public function listAllCategories(): CategoryCollection
+    {
+        $events = $this->model->newQuery()->get();
+
+        return new CategoryCollection($events);
+    }
 }

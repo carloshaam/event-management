@@ -11,6 +11,8 @@ onMounted(() => {
 <template>
   <Navbar/>
   <main role="main">
-    <slot/>
+    <div class="container max-w-screen-7xl mx-auto">
+      <slot/>
+    </div>
   </main>
 </template>
