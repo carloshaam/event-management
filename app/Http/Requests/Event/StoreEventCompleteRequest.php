@@ -52,6 +52,13 @@ class StoreEventCompleteRequest extends FormRequest
             'created_by' => ['nullable'],
             'visibility' => ['required', Rule::enum(VisibilityEnum::class)],
             'stage' => ['required', Rule::in(StageEnum::DRAFT, StageEnum::PUBLISHED)],
+            'tickets' => ['required', 'array', 'min:1'],
+            'tickets.*.title' => ['required', 'max:45'],
+            'tickets.*.quantity' => ['required', 'integer', 'min:1'],
+            'tickets.*.price' => ['required'],
+            'tickets.*.quantity_per_order' => ['required', 'integer', 'min:1'],
+            'tickets.*.start_time' => ['required', 'date', 'after:tomorrow'],
+            'tickets.*.end_time' => ['required', 'date', 'after:tickets.*.start_time'],
         ];
     }
 

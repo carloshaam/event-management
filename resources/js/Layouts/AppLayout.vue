@@ -21,11 +21,11 @@ import AppNavbar from '@/Components/App/AppNavbar.vue';
   <!-- Page Content -->
   <main>
     <div class="container max-w-screen-7xl mx-auto">
-      <div class="grid grid-cols-4 gap-4 my-4">
-        <div class="col-span-1">
+      <div class="grid grid-cols-6 gap-4 my-4">
+        <div v-if="$slots.aside" class="col-span-2">
           <slot name="aside"></slot>
         </div>
-        <div class="col-span-3">
+        <div :class="$slots.aside ? 'col-span-4' : 'col-start-2 col-span-4'">
           <slot name="main"></slot>
         </div>
       </div>

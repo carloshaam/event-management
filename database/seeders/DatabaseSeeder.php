@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             EventSeeder::class,
             LocationSeeder::class,
+            TicketSeeder::class,
         ]);
     }
 }

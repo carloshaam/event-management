@@ -48,6 +48,7 @@ const form = reactive({
   complement: null,
   city: null,
   state: 'MG',
+  tickets: []
 });
 
 const searchZipCode = async (zipCode) => {
@@ -62,6 +63,41 @@ const searchZipCode = async (zipCode) => {
       alert('Erro ao buscar endereço: ' + err.message);
     }
   }
+};
+
+const addTicket = () => {
+  form.tickets.push({
+    title: null,
+    quantity: null,
+    price: null,
+    quantity_per_order: null,
+    start_time: null,
+    end_time: null,
+  });
+};
+
+const removeTicket = (index) => {
+  form.tickets.splice(index, 1);
+
+  Object.keys(errors.value).forEach((key) => {
+    if (key.startsWith(`tickets.${index}`)) {
+      delete errors.value[key];
+    }
+  });
+
+  const updatedErrors = {};
+  Object.keys(errors.value).forEach((key) => {
+    const match = key.match(/^tickets\.(\d+)\.(.+)$/);
+    if (match) {
+      const [fullKey, oldIndex, field] = match;
+      const newIndex = oldIndex > index ? oldIndex - 1 : oldIndex;
+      updatedErrors[`tickets.${newIndex}.${field}`] = errors.value[fullKey];
+    } else {
+      updatedErrors[key] = errors.value[key];
+    }
+  });
+
+  errors.value = updatedErrors;
 };
 
 const submitFormEvent = async (stage) => {
@@ -351,11 +387,141 @@ const submitFormEvent = async (stage) => {
       </div>
     </div>
     <!-- End Date and Time Event -->
+    <!-- Start Ticket Event -->
+    <div class="flex flex-col bg-white border rounded shadow-lg shadow-gray-100 mb-4">
+      <div class="flex justify-between items-center border-b py-3 px-8">
+        <h3 class="text-lg font-bold text-gray-800">
+          5. Ingressos
+        </h3>
+      </div>
+      <div class="p-8">
+        <div v-if="errors && errors.tickets" class="flex justify-center text-sm text-red-600 mb-4">{{ errors.tickets[0] }}</div>
+        <template v-for="(ticket, index) in form.tickets" :key="index">
+          <div class="flex flex-col bg-white border shadow-sm rounded-md mb-4">
+            <div class="flex justify-between items-center border-b rounded-t-md py-3 px-4 md:px-5">
+              <h3 class="text-lg font-bold text-black">
+                #{{ index + 1 }}
+              </h3>
+              <div class="flex items-center gap-x-1">
+                <div class="hs-tooltip inline-block">
+                  <button
+                    type="button"
+                    class="hs-tooltip-toggle size-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-red-500 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+                    @click="removeTicket(index)"
+                  >
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 6 6 18"></path>
+                      <path d="m6 6 12 12"></path>
+                    </svg>
+                    <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm" role="tooltip">
+                      Remover ingresso
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 md:p-5">
+              <div class="grid grid-cols-6 gap-4 mb-4">
+                <div class="col-span-3">
+                  <InputLabel :for="'ticket_title_' + index" value="Titulo" />
+                  <TextInput
+                      :id="'ticket_title_' + index"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="ticket.title"
+                  />
+                  <InputError
+                      v-if="errors && errors[`tickets.${index}.title`]"
+                      :message="errors[`tickets.${index}.title`][0]"
+                  />
+                </div>
+                <div class="col-span-1">
+                  <InputLabel :for="'ticket_quantity_' + index" value="Quantidade" />
+                  <TextInput
+                      :id="'ticket_quantity_' + index"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="ticket.quantity"
+                  />
+                  <InputError
+                      v-if="errors && errors[`tickets.${index}.quantity`]"
+                      :message="errors[`tickets.${index}.quantity`][0]"
+                  />
+                </div>
+                <div class="col-span-1">
+                  <InputLabel :for="'ticket_price_' + index" value="Preço" />
+                  <TextInput
+                      :id="'ticket_price_' + index"
+                      type="number"
+                      class="mt-1 block w-full"
+                      v-model="ticket.price"
+                  />
+                  <InputError
+                      v-if="errors && errors[`tickets.${index}.price`]"
+                      :message="errors[`tickets.${index}.price`][0]"
+                  />
+                </div>
+                <div class="col-span-1">
+                  <InputLabel :for="'ticket_quantity_per_order_' + index" value="Qtd. por compra" />
+                  <TextInput
+                      :id="'ticket_quantity_per_order_' + index"
+                      type="number"
+                      class="mt-1 block w-full"
+                      v-model="ticket.quantity_per_order"
+                  />
+                  <InputError
+                      v-if="errors && errors[`tickets.${index}.quantity_per_order`]"
+                      :message="errors[`tickets.${index}.quantity_per_order`][0]"
+                  />
+                </div>
+              </div>
+              <div class="grid grid-cols-6 gap-4 mb-4">
+                <div class="col-span-6">
+                  <h4 class="text-md text-gray-500">Período das vendas deste ingresso:</h4>
+                </div>
+                <div class="col-span-2">
+                  <InputLabel :for="'ticket_start_time_' + index" value="Data de início das vendas" />
+                  <TextInput
+                      :id="'ticket_start_time_' + index"
+                      type="datetime-local"
+                      class="mt-1 block w-full"
+                      v-model="ticket.start_time"
+                  />
+                  <InputError
+                      v-if="errors && errors[`tickets.${index}.start_time`]"
+                      :message="errors[`tickets.${index}.start_time`][0]"
+                  />
+                </div>
+                <div class="col-span-2">
+                  <InputLabel :for="'ticket_end_time_' + index" value="Date de término das vendas" />
+                  <TextInput
+                      :id="'ticket_end_time_' + index"
+                      type="datetime-local"
+                      class="mt-1 block w-full"
+                      v-model="ticket.end_time"
+                  />
+                  <InputError
+                      v-if="errors && errors[`tickets.${index}.end_time`]"
+                      :message="errors[`tickets.${index}.end_time`][0]"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+        <div class="flex justify-center">
+          <SecondaryButton @click="addTicket">
+            Adicionar ingresso
+          </SecondaryButton>
+        </div>
+      </div>
+    </div>
+    <!-- End Ticket Event -->
     <!-- Start Visibility Event -->
     <div class="flex flex-col bg-white border rounded shadow-lg shadow-gray-100 mb-4">
       <div class="flex justify-between items-center border-b py-3 px-8">
         <h3 class="text-lg font-bold text-gray-800">
-          5. Visibilidade do evento
+          6. Visibilidade do evento
           <p class="text-sm font-normal text-gray-500">
             Se você definir o seu evento como público,
             ele poderá aparecer em buscadores da internet (como Google, Bing, Yahoo),

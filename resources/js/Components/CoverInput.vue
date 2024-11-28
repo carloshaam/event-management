@@ -50,9 +50,9 @@ export default {
       <img :src="src" alt="Thumb" class="w-full h-full" />
       <div class="absolute inset-0 flex items-end p-4 bg-black bg-opacity-25">
         <div class="flex space-x-3">
-          <button type="button" @click="browse()" class="bg-white text-black py-2 px-4 rounded">Browse</button>
+          <button type="button" @click="browse()" class="bg-white text-black py-2 px-4 rounded">Selecionar</button>
           <button type="button" v-if="modelValue" @click="remove()" class="bg-red-600 text-white py-2 px-4 rounded">
-            Remove
+            Remover
           </button>
         </div>
       </div>

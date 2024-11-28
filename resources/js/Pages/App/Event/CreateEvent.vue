@@ -1,7 +1,7 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head, Link} from "@inertiajs/vue3";
 import EventFormCreate from "@/Components/App/Event/EventFormCreate.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 const props = defineProps({
   categories: {
@@ -18,26 +18,20 @@ const props = defineProps({
 
 <template>
   <Head title="Criar evento"/>
-  <AuthenticatedLayout>
+  <AppLayout>
     <template v-slot:navbar>
       <Link :href="route('app.events.index')">
         Criar evento
       </Link>
     </template>
-    <div class="container max-w-screen-7xl mx-auto">
-      <div class="grid grid-cols-3 gap-4 my-4">
-        <div></div>
-        <div>
-          <EventFormCreate
-            :categories="categories"
-            :visibilities="visibilities"
-            :states="states"
-          />
-        </div>
-        <div></div>
-      </div>
-    </div>
-  </AuthenticatedLayout>
+    <template v-slot:main>
+      <EventFormCreate
+          :categories="categories"
+          :visibilities="visibilities"
+          :states="states"
+      />
+    </template>
+  </AppLayout>
 </template>
 
 <style scoped>

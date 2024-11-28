@@ -3,7 +3,7 @@ import {Link} from "@inertiajs/vue3";
 </script>
 
 <template>
-  <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-md shadow sm:p-6">
+  <div class="w-full p-4 bg-white border border-gray-200 rounded-md shadow sm:p-6">
     <h5 class="mb-3 text-base font-semibold text-gray-900 md:text-xl">
       Olá, {{ $page.props.auth.user.short_name }}!
     </h5>
