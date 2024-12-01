@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Repositories\Event;
 
 use App\Contracts\Event\EventRepositoryInterface;
-use App\DataTransferObjects\Event\CreateEventWithCoverDTO;
-use App\DataTransferObjects\Event\FilterEventDTO;
-use App\DataTransferObjects\Event\FilterEventUserDTO;
+use App\Data\Event\CreateEventData;
+use App\Data\Event\FilterEventData;
+use App\Data\Event\FilterEventUserData;
 use App\Http\Resources\Event\EventCollection;
 use App\Http\Resources\Event\EventResource;
 use App\Http\Resources\Event\EventIndividualCollection;
@@ -19,16 +19,16 @@ readonly class EventRepository implements EventRepositoryInterface
         private Event $model
     ) {}
 
-    public function create(CreateEventWithCoverDTO $data): EventResource
+    public function create(CreateEventData $data): EventResource
     {
         $event = $this->model->newQuery()->create($data->toArray());
 
         return new EventResource($event);
     }
 
-    public function listEvents(FilterEventDTO $data): EventCollection
+    public function listEvents(FilterEventData $data): EventCollection
     {
-        $events = $this->model->newQuery()->with(['category', 'location'])->published();
+        $events = $this->model->newQuery()->with(['category', 'location', 'tickets'])->published();
 
         if ($data->title) {
             $events->where(column: 'title', operator: 'like', value: "%{$data->title}%");
@@ -37,9 +37,9 @@ readonly class EventRepository implements EventRepositoryInterface
         return new EventCollection($events->paginate());
     }
 
-    public function listEventsIndividual(FilterEventUserDTO $data, $userId): EventIndividualCollection
+    public function listEventsIndividual(FilterEventUserData $data, $userId): EventIndividualCollection
     {
-        $events = $this->model->newQuery()->with(['category', 'location'])->createdBy($userId);
+        $events = $this->model->newQuery()->with(['category', 'location', 'tickets'])->createdBy($userId);
 
         if ($data->title) {
             $events->where(column: 'title', operator: 'like', value: "%{$data->title}%");
@@ -51,7 +51,7 @@ readonly class EventRepository implements EventRepositoryInterface
     public function listFivePublishedEvent(): EventCollection
     {
         $events = $this->model->newQuery()
-                              ->with(['category', 'location'])
+                              ->with(['category', 'location', 'tickets'])
                               ->public()
                               ->published()
                               ->orderByDesc('id')

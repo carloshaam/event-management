@@ -442,6 +442,8 @@ const submitFormEvent = async (stage) => {
                       type="text"
                       class="mt-1 block w-full"
                       v-model="ticket.quantity"
+                      v-maska="'9'"
+                      data-maska-tokens="9:[0-9]:repeated"
                   />
                   <InputError
                       v-if="errors && errors[`tickets.${index}.quantity`]"
@@ -452,9 +454,12 @@ const submitFormEvent = async (stage) => {
                   <InputLabel :for="'ticket_price_' + index" value="Preço" />
                   <TextInput
                       :id="'ticket_price_' + index"
-                      type="number"
+                      type="text"
                       class="mt-1 block w-full"
                       v-model="ticket.price"
+                      v-maska="'9.99#,##'"
+                      data-maska-reversed
+                      data-maska-tokens="9:[0-9]:repeated"
                   />
                   <InputError
                       v-if="errors && errors[`tickets.${index}.price`]"

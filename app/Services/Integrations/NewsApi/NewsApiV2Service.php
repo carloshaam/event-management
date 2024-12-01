@@ -9,7 +9,7 @@ use App\Exceptions\NewsApi\NewsApiException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class NewsApiV2Service implements NewsApiInterface
+final class NewsApiV2Service implements NewsApiInterface
 {
     public function __construct(
         public Client $client,

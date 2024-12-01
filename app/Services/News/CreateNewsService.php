@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Services\News;
 
 use App\Actions\News\CreateNewsAction;
-use App\DataTransferObjects\News\CreateNewsDTO;
+use App\Data\News\CreateNewsData;
 use App\Http\Resources\News\NewsResource;
 
-readonly class CreateNewsService
+final readonly class CreateNewsService
 {
     public function __construct(
         private CreateNewsAction $createNewsAction,
@@ -21,9 +21,9 @@ readonly class CreateNewsService
         return $this->createNewsAction->execute($eventDTO);
     }
 
-    protected function makeNewsDTO(array $data): CreateNewsDTO
+    protected function makeNewsDTO(array $data): CreateNewsData
     {
-        return new CreateNewsDTO(
+        return new CreateNewsData(
             source_slug: $data['source_slug'],
             source_name: $data['source_name'],
             author: $data['author'],
@@ -32,7 +32,6 @@ readonly class CreateNewsService
             url: $data['url'],
             url_to_image: $data['url_to_image'],
             published_at: $data['published_at'],
-            content: $data['content'],
         );
     }
 }

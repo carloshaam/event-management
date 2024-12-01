@@ -5,21 +5,15 @@ declare(strict_types=1);
 namespace App\Actions\News;
 
 use App\Contracts\News\NewsRepositoryInterface;
-use App\DataTransferObjects\News\CreateNewsDTO;
+use App\Data\News\CreateNewsCollectionData;
 
-/**
- * @template T of CreateNewsDTO
- */
 final readonly class CreateBulkNewsAction
 {
     public function __construct(
         private NewsRepositoryInterface $repository,
     ) {}
 
-    /**
-     * @param T[] $data
-     */
-    public function execute(array $data)
+    public function execute(CreateNewsCollectionData $data)
     {
         return $this->repository->createBulk($data);
     }

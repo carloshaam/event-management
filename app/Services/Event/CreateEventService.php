@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Services\Event;
 
 use App\Actions\Event\CreateEventAction;
-use App\DataTransferObjects\Event\CreateEventDTO;
-use App\DataTransferObjects\Event\CreateEventWithCoverDTO;
+use App\Data\Event\CreateEventData;
 use App\Exceptions\UploadFileException;
 use App\Http\Resources\Event\EventResource;
 
-readonly class CreateEventService
+final readonly class CreateEventService
 {
     public function __construct(
         private CreateEventAction $createEventAction,
@@ -20,11 +19,11 @@ readonly class CreateEventService
     /**
      * @throws UploadFileException
      */
-    public function create(CreateEventDTO $dto): EventResource
+    public function create(CreateEventData $data): EventResource
     {
-        $createEventCover = $this->createEventCoverService->create($dto);
-        $dtoEventWithCover = CreateEventWithCoverDTO::fromCreateEventDTO($dto, $createEventCover?->getHash());
+        $createEventCover = $this->createEventCoverService->create($data);
+        $data->setCoverHash($createEventCover->getHash());
 
-        return $this->createEventAction->execute($dtoEventWithCover);
+        return $this->createEventAction->execute($data);
     }
 }

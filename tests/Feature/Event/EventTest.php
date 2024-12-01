@@ -46,6 +46,16 @@ test('can create an event', function () {
         'neighborhood' => 'Neighborhood test',
         'city' => 'City test',
         'state' => 'MG',
+        'tickets' => [
+            [
+                'title' => 'Ticket 1',
+                'quantity' => 10,
+                'price' => 20,
+                'quantity_per_order' => 5,
+                'start_time' => $startTime,
+                'end_time' => $endTime,
+            ],
+        ]
     ]);
 
     $this->assertAuthenticated();
@@ -81,6 +91,16 @@ test('can create an event cover can be uploaded', function () {
         'neighborhood' => 'Neighborhood test',
         'city' => 'City test',
         'state' => 'MG',
+        'tickets' => [
+            [
+                'title' => 'Ticket 1',
+                'quantity' => 10,
+                'price' => 20,
+                'quantity_per_order' => 5,
+                'start_time' => $startTime,
+                'end_time' => $endTime,
+            ],
+        ]
     ]);
 
     Storage::disk('events')->assertExists($file->hashName());
@@ -114,6 +134,16 @@ test('creates unique slug if title already exists', function () {
         'neighborhood' => 'Neighborhood test',
         'city' => 'City test',
         'state' => 'MG',
+        'tickets' => [
+            [
+                'title' => 'Ticket 1',
+                'quantity' => 10,
+                'price' => 20,
+                'quantity_per_order' => 5,
+                'start_time' => $startTime,
+                'end_time' => $endTime,
+            ],
+        ]
     ]);
 
     $response = $this->actingAs($user)->post('/app/events', [
@@ -135,6 +165,16 @@ test('creates unique slug if title already exists', function () {
         'neighborhood' => 'Another Neighborhood test',
         'city' => 'Another City test',
         'state' => 'RJ',
+        'tickets' => [
+            [
+                'title' => 'Ticket 1',
+                'quantity' => 10,
+                'price' => 20,
+                'quantity_per_order' => 5,
+                'start_time' => $startTime,
+                'end_time' => $endTime,
+            ],
+        ]
     ]);
 
     $this->assertAuthenticated();

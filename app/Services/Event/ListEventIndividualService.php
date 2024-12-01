@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Services\Event;
 
 use App\Actions\Event\ListEventIndividualAction;
-use App\DataTransferObjects\Event\FilterEventUserDTO;
+use App\Data\Event\FilterEventUserData;
 use App\Http\Resources\Event\EventIndividualCollection;
 
-readonly class ListEventIndividualService
+final readonly class ListEventIndividualService
 {
     public function __construct(
         private ListEventIndividualAction $listEventIndividualAction,
@@ -16,10 +16,10 @@ readonly class ListEventIndividualService
 
     public function listEventsIndividual(int $userId, array $data = []): EventIndividualCollection
     {
-        $filterEventUserDTO = new FilterEventUserDTO(
+        $filterEventUserData = new FilterEventUserData(
             title: $data['title'] ?? null,
         );
 
-        return $this->listEventIndividualAction->execute($filterEventUserDTO, $userId);
+        return $this->listEventIndividualAction->execute($filterEventUserData, $userId);
     }
 }

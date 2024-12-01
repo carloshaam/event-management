@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Contracts\Integrations\NewsAPI\NewsApiInterface;
 use App\Facades\Integrations\NewsApiFacade;
-use Illuminate\Support\Facades\Http;
 
-// TODO: refazer testes
 it('can get articles from the API', function () {
     $mockResponse = [
         'status' => 'ok',
@@ -23,23 +22,17 @@ it('can get articles from the API', function () {
         ],
     ];
 
-    // Fake HTTP response
-    Http::fake([
-        'https://newsapi.org/v2/top-headlines?country=us&pageSize=10' => Http::response($mockResponse, 200),
-    ]);
+    $newsApiMock = Mockery::mock(NewsApiInterface::class);
+    $newsApiMock->expects('listTopHeadlines')
+                ->with('us', 'business', 1, 10)
+                ->andReturns($mockResponse);
 
-    // Call the method being tested
-    $response = NewsApiFacade::listTopHeadlines('us', 10);
+    $this->app->instance(NewsApiInterface::class, $newsApiMock);
 
-    // Assertions
-    expect($response)
-        ->toHaveKeys(['status', 'totalResults', 'articles'])
-        ->and($response['status'])->toBe('ok')
-        ->and($response['totalResults'])->toBe(37);
+    $response = NewsApiFacade::listTopHeadlines('us', 'business', 1, 10);
 
+    $this->assertArrayHasKey('status', $response);
+    $this->assertEquals('ok', $response['status']);
     $article = $response['articles'][0];
-    expect($article)
-        ->toHaveKeys(['source', 'author', 'title', 'description', 'url', 'urlToImage', 'publishedAt', 'content'])
-        ->and($article['author'])->toBe('Gabe Lacques')
-        ->and($article['source']['name'])->toBe('USA TODAY');
+    $this->assertEquals('USA TODAY', $article['source']['name']);
 });

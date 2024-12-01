@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Contracts\Location;
 
-use App\DataTransferObjects\Location\CreateLocationWithEventDTO;
+use App\Data\Location\CreateLocationData;
 use App\Http\Resources\Location\LocationResource;
 
 interface LocationRepositoryInterface
 {
-    public function create(CreateLocationWithEventDTO $data): LocationResource;
+    public function create(CreateLocationData $data): LocationResource;
 }

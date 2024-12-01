@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\App\Event;
 
-use App\DataTransferObjects\Event\CreateEventDTO;
-use App\DataTransferObjects\Location\CreateLocationDTO;
+use App\Data\Event\CreateEventSetupData;
 use App\Http\Requests\Event\StoreEventCompleteRequest;
-use App\Services\Event\CreateEventWithLocationService;
+use App\Services\Event\CreateEventSetupService;
 
 final readonly class StoreEventController
 {
     public function __construct(
-        private CreateEventWithLocationService $createEventWithLocationService
+        private CreateEventSetupService $createEventSetupService
     ) {}
 
     public function __invoke(StoreEventCompleteRequest $request)
     {
-        $eventDTO = CreateEventDTO::fromRequest($request);
-        $locationDTO = CreateLocationDTO::fromRequest($request);
+        $createEventData = CreateEventSetupData::fromRequest($request);
 
-        return $this->createEventWithLocationService->create($eventDTO, $locationDTO);
+        return $this->createEventSetupService->create($createEventData);
     }
 }

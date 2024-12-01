@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\News;
 
+use App\Http\Resources\DateTimeResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,8 +26,7 @@ class NewsResource extends JsonResource
             'description' => $this->description,
             'url' => $this->url,
             'url_to_image' => $this->url_to_image,
-            'published_at' => $this->published_at,
-            'content' => $this->content,
+            'published_at' => new DateTimeResource($this->published_at),
         ];
     }
 }

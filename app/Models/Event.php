@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\UploadedFile;
@@ -35,6 +36,7 @@ use Illuminate\Support\Carbon;
  * @property-read Category $category
  * @property-read User $user
  * @property-read Location $location
+ * @property-read Ticket $tickets
  */
 #[ObservedBy([EventObserver::class])]
 class Event extends Model
@@ -171,5 +173,10 @@ class Event extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
     }
 }

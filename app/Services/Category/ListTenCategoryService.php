@@ -8,7 +8,7 @@ use App\Actions\Category\ListTenCategoryAction;
 use App\Http\Resources\Category\CategoryCollection;
 use Illuminate\Support\Facades\Cache;
 
-readonly class ListTenCategoryService
+final readonly class ListTenCategoryService
 {
     public function __construct(
         private ListTenCategoryAction $listTenCategoryAction,

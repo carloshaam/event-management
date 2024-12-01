@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Integrations;
 
-use App\DataTransferObjects\News\CreateNewsDTO;
+use App\Data\News\CreateNewsCollectionData;
 use App\Facades\Integrations\NewsApiFacade;
 use App\Services\News\CreateBulkNewsService;
 use Carbon\Carbon;
@@ -33,27 +33,23 @@ class NewsApiTopHeadlinesCron extends Command
     {
         $response = NewsApiFacade::listTopHeadlines();
 
-        $articlesDTO = [];
+        $articles = [];
         foreach ($response['articles'] as $article) {
-            if (is_null($article['source']['id'])) continue;
+            if ($article['title'] === '[Removed]') continue;
 
             $publishedAt = Carbon::parse($article['publishedAt']);
 
-            $articleDTO = new CreateNewsDTO(
-                source_slug: $article['source']['id'],
-                source_name: $article['source']['name'],
-                author: $article['author'],
-                title: $article['title'],
-                description: $article['description'],
-                url: $article['url'],
-                url_to_image: $article['urlToImage'],
-                published_at: $publishedAt->toDateTimeString(),
-            );
-
-            $articlesDTO[] = $articleDTO;
+            $articles[] = [
+                'source' => $article['source']['name'],
+                'title' => $article['title'],
+                'url' => $article['url'],
+                'url_to_image' => $article['urlToImage'],
+                'published_at' => $publishedAt->toDateTimeString(),
+            ];
         }
 
+        $newsCollectionData = CreateNewsCollectionData::fromArray($articles);
         $newsService = app(CreateBulkNewsService::class);
-        $newsService->create($articlesDTO);
+        $newsService->create($newsCollectionData);
     }
 }

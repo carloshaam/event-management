@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects\Location;
+namespace App\Data\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final readonly class CreateLocationDTO
+final class CreateLocationData
 {
     public function __construct(
         public ?int $eventId,
@@ -48,5 +48,10 @@ final readonly class CreateLocationDTO
             'city' => $this->city,
             'state' => $this->state,
         ];
+    }
+
+    public function setEventId(int $eventId): void
+    {
+        $this->eventId = $eventId;
     }
 }

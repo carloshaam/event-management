@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Event;
 
-use App\Data\File;
+use App\Support\File;
 use App\Utilities\DefineDiskHelper;
 use Illuminate\Http\UploadedFile;
 

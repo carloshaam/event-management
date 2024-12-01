@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects\Event;
+namespace App\Data\Event;
 
-final readonly class FilterEventUserDTO
+final class FilterEventData
 {
     public function __construct(
         public ?string $title,

@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects\Event;
+namespace App\Data\Event;
 
+use App\Data\Location\CreateLocationData;
+use App\Data\Ticket\CreateTicketCollectionData;
 use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 
-final readonly class CreateEventDTO
+final class CreateEventSetupData
 {
     public function __construct(
         public VisibilityEnum $visibility,
@@ -21,6 +23,8 @@ final readonly class CreateEventDTO
         public string $endTime,
         public int $categoryId,
         public int $createdBy,
+        public CreateLocationData $location,
+        public CreateTicketCollectionData $tickets,
     ) {}
 
     public static function fromRequest(FormRequest $request): self
@@ -35,6 +39,8 @@ final readonly class CreateEventDTO
             endTime: $request->input('end_time'),
             categoryId: $request->input('category_id'),
             createdBy: $request->user()->id,
+            location: CreateLocationData::fromRequest($request),
+            tickets: CreateTicketCollectionData::fromArray($request->input('tickets', []))
         );
     }
 
@@ -50,6 +56,8 @@ final readonly class CreateEventDTO
             'end_time' => $this->endTime,
             'category_id' => $this->categoryId,
             'created_by' => $this->createdBy,
+            'location' => $this->location->toArray(),
+            'tickets' =>  $this->tickets->toArray(),
         ];
     }
 }

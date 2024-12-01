@@ -7,7 +7,7 @@ namespace App\Services\Event;
 use App\Actions\Event\ListFivePublishedEventAction;
 use App\Http\Resources\Event\EventCollection;
 
-readonly class ListFivePublishedEventService
+final readonly class ListFivePublishedEventService
 {
     public function __construct(
         private ListFivePublishedEventAction $listFivePublishedEventAction,

@@ -10,6 +10,8 @@ use App\Http\Resources\CoverResource;
 use App\Http\Resources\DateTimeResource;
 use App\Http\Resources\Location\LocationResource;
 use App\Http\Resources\StageResource;
+use App\Http\Resources\Ticket\TicketCollection;
+use App\Http\Resources\Ticket\TicketResource;
 use App\Http\Resources\VisibilityResource;
 use App\Support\DateTimeRangeForHumanSupport;
 use Illuminate\Http\Request;
@@ -39,6 +41,7 @@ class EventResource extends JsonResource
             'end_time' => new DateTimeResource($this->end_time),
             'category' => new CategoryResource($this->category),
             'location' => new LocationResource($this->location),
+            'tickets' => new TicketCollection($this->tickets),
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

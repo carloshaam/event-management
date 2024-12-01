@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Repositories\News;
 
 use App\Contracts\News\NewsRepositoryInterface;
-use App\DataTransferObjects\News\CreateNewsDTO;
+use App\Data\News\CreateNewsCollectionData;
+use App\Data\News\CreateNewsData;
 use App\Http\Resources\News\NewsResource;
 use App\Models\News;
 
@@ -15,15 +16,15 @@ readonly class NewsRepository implements NewsRepositoryInterface
         private News $model
     ) {}
 
-    public function create(CreateNewsDTO $data): NewsResource
+    public function create(CreateNewsData $data): NewsResource
     {
         $event = $this->model->newQuery()->create($data->toArray());
 
         return new NewsResource($event);
     }
 
-    public function createBulk(array $data): bool
+    public function createBulk(CreateNewsCollectionData $data): bool
     {
-        return $this->model->newQuery()->insert($data);
+        return $this->model->newQuery()->insert($data->toArray());
     }
 }

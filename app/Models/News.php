@@ -8,15 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $source_slug
- * @property string $source_name
- * @property string $author
+ * @property string $source
  * @property string $title
- * @property string $description
  * @property string $url
  * @property string $url_to_image
  * @property string $published_at
- * @property string $content
  */
 class News extends Model
 {
@@ -33,15 +29,11 @@ class News extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'source_slug',
-        'source_name',
-        'author',
+        'source',
         'title',
-        'description',
         'url',
         'url_to_image',
         'published_at',
-        'content',
     ];
 
     /**

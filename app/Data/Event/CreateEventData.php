@@ -2,17 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects\Event;
+namespace App\Data\Event;
 
 use App\Enums\StageEnum;
 use App\Enums\VisibilityEnum;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 
-final class CreateEventWithCoverDTO
+final class CreateEventData
 {
     public function __construct(
         public VisibilityEnum $visibility,
         public StageEnum $stage,
-        public ?string $cover,
+        public UploadedFile|string|null $cover,
         public string $title,
         public string $description,
         public string $startTime,
@@ -21,18 +23,18 @@ final class CreateEventWithCoverDTO
         public int $createdBy,
     ) {}
 
-    public static function fromCreateEventDTO(CreateEventDTO $dto, ?string $coverHash): self
+    public static function fromRequest(FormRequest $request): self
     {
         return new self(
-            visibility: $dto->visibility,
-            stage: $dto->stage,
-            cover: $coverHash,
-            title: $dto->title,
-            description: $dto->description,
-            startTime: $dto->startTime,
-            endTime: $dto->endTime,
-            categoryId: $dto->categoryId,
-            createdBy: $dto->createdBy,
+            visibility: VisibilityEnum::from($request->input('visibility')),
+            stage: StageEnum::from($request->input('stage')),
+            cover: $request->hasFile('cover') ? $request->file('cover') : null,
+            title: $request->input('title'),
+            description: $request->input('description'),
+            startTime: $request->input('start_time'),
+            endTime: $request->input('end_time'),
+            categoryId: $request->input('category_id'),
+            createdBy: $request->user()->id,
         );
     }
 
@@ -49,5 +51,10 @@ final class CreateEventWithCoverDTO
             'category_id' => $this->categoryId,
             'created_by' => $this->createdBy,
         ];
+    }
+
+    public function setCoverHash(string $cover): void
+    {
+        $this->cover = $cover;
     }
 }
