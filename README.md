@@ -5,6 +5,9 @@ O **Sistema de Gestão de Eventos** é uma aplicação desenvolvida para auxilia
 > [!WARNING]
 > Projeto em desenvolvimento, alterações estão sendo feitas e mudanças rigorosas podem acontecer a qualquer momento.
 
+![Alt Text](.github/assets/images/create-event.png)
+
+
 ## 🛠️ To-Do
 
 ### 1. Autenticação de Usuários
